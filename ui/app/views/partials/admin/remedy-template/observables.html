@@ -1,0 +1,44 @@
+<div class="case-template-section">
+    <h4 class="vpad10 text-primary">
+        Variables ({{$vm.template.observables.length || 0}})
+        <a class="pull-right" href ng-click="$vm.addObservables()">
+            <i class="fa fa-plus"></i>
+        </a>
+    </h4>
+
+    <div class="empty-message" ng-if="!$vm.template.observables || $vm.template.observables.length === 0">
+        No variables were found in the template.
+    </div>
+
+    <div ng-if="$vm.template.observables.length !== 0" ui-sortable="$vm.sortableOptions" ng-model="$vm.template.observables">
+        <div class="observable-item" ng-init="isCollapsed=true" ng-repeat="t in $vm.template.observables">
+            <div class="panel-heading">
+                <span class="drag-handle text-primary clickable mr-xxs">
+                    <i class="fa fa-bars"></i>
+                </span>
+                <span>
+                    <a href ng-click="isCollapsed=!isCollapsed">
+                        <i class="fa" ng-class="{'fa-caret-down': isCollapsed, 'fa-caret-up': !isCollapsed}"></i>
+                    </a>
+                </span>
+                <span class="hpad5">{{t.name}}</span>
+
+                <span class="mr-xxs" ng-if="t.type">{{t.type}}</span>
+				<span class="mr-xxs" ng-hide="t.type">No type selected</span>
+
+                <span class="pull-right">
+                    <a class="text-default" href ng-click="$vm.editVariable(t)">
+                        <i class="fa fa-pencil"></i>&nbsp;Edit</a>
+                    <span class="hpad5"></span>
+                </span>
+            </div>
+            <div class="panel-body" ng-hide="isCollapsed">
+                <p btf-markdown="t.description" ng-show="t.description != ''"></p>
+                <p class="text-warning" ng-show="!t.description || t.description===''">
+                    <em>No description specified</em>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>

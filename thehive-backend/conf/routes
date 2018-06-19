@@ -114,6 +114,14 @@ GET      /api/dashboard/:dashboardId              controllers.DashboardCtrl.get(
 PATCH    /api/dashboard/:dashboardId              controllers.DashboardCtrl.update(dashboardId)
 DELETE   /api/dashboard/:dashboardId              controllers.DashboardCtrl.delete(dashboardId)
 
+GET      /api/test                                controllers.TestCtrl.test()
+
+POST     /api/remedy/template/_search             controllers.RemedyTemplateCtrl.find()
+POST     /api/remedy/template                     controllers.RemedyTemplateCtrl.create()
+GET      /api/remedy/template/:remedyTemplateId   controllers.RemedyTemplateCtrl.get(remedyTemplateId)
+PATCH    /api/remedy/template/:remedyTemplateId   controllers.RemedyTemplateCtrl.update(remedyTemplateId)
+DELETE   /api/remedy/template/:remedyTemplateId   controllers.RemedyTemplateCtrl.delete(remedyTemplateId)
+
 ->       /api/connector                           connectors.ConnectorRouter
 
 GET      /*file                                   controllers.AssetCtrl.get(file)

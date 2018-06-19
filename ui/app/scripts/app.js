@@ -154,6 +154,13 @@ angular.module('thehive', ['ngAnimate', 'ngMessages', 'ngSanitize', 'ui.bootstra
                     }
                 }
             })
+            .state('app.administration.remedy-templates', {
+                url: '/remedy-templates',
+                templateUrl: 'views/partials/admin/remedy-templates.html',
+                controller: 'AdminRemedyTemplatesCtrl',
+                controllerAs: '$vm',
+                title: 'Remedy templates administration',
+            })
             .state('app.administration.case-templates', {
                 url: '/case-templates',
                 templateUrl: 'views/partials/admin/case-templates.html',

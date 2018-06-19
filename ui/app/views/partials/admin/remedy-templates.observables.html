@@ -1,0 +1,38 @@
+<form class="form-horizontal" name="observableForm" ng-submit="addObservable()" novalidate>
+    <div class="modal-header bg-primary">
+        <h3 class="modal-title">{{action}} observable</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group" ng-class="{ 'has-error' : observableForm.name.$invalid && !observableForm.name.$pristine }">
+
+<!--
+            <label class="col-md-3 control-label">Observable title
+                <i class="fa fa-asterisk text-danger"></i>
+            </label>
+            <div class="col-md-9">
+                <input class="form-control" ng-model="observable.title" placeholder="Observable title" required type="text">
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : observableForm.description.$invalid && !observableForm.description.$pristine }">
+            <label class="col-md-3 control-label">Observable description</label>
+            <div class="col-md-9">
+                <markdown-editor content="observable.description"></markdown-editor>
+                <p class="help-block small">Observable's default description</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">Assignee</label>
+            <div class="col-md-9">
+                <select class="form-control" ng-model="observable.owner"
+                    ng-options="item.id as item.name for item in users | orderBy:'id'"></select>                
+            </div>
+        </div>
+    </div>
+-->
+    <div class="modal-footer text-left">
+        <button class="btn btn-default" ng-click="cancel()" type="button">Cancel</button>
+        <button class="btn btn-primary pull-right" ng-disabled="observableForm.$invalid" type="submit">{{action}} observable</button>
+    </div>
+</form>
