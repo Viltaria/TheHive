@@ -47,7 +47,7 @@
             <p>Created On: {{ report.caze.createdAt }}</p>
             <p>Assigned To: {{ report.caze.owner }}</p>
             <p>Last Updated: {{ report.caze.updatedAt }}</p>
-            <p>Last Updated By: {{ report.caze.updatedBy}}</p>
+            <p>Last Updated By: {{ report.caze.updatedBy }}</p>
             <p ng-if="report.caze.endDate">Closed On: {{ report.caze.endDate }}</p>
         </div>
     </div>
@@ -55,15 +55,40 @@
     <div class="container">
         <h1 class="jumbotron-heading">Tasks</h1>
         <p>Tasks: {{ report.tasks.length }}</p>
-        <div ng-repeat="task in report.tasks">
+        <div ng-repeat="task in report.tasks" ng-init="logs=report.getTaskLogs(task.id)">
             <p>Title: {{ task.title }}</p>
             <p>Author: {{ task.createdBy }}</p>
             <p>Status: {{ task.status }}</p>
+            <p>Assigned To: {{ task.owner || task.createdBy }}</p>
+            <span ng-if="task.flag">
+                <i class="glyphicon glyphicon-flag"></i>
+            </span>
+            <div ng-if="task.description">
+                <h5>Description</h5>            
+                <p>{{ task.description }}</p>
+            </div>
+            <div>
+                <h5>Audit Trail</h5>
+                <p>Created By: {{ task.createdBy }}</p>
+                <p>Created On: {{ task.createdAt }}</p>
+                <p>Assigned To: {{ task.owner || task.createdBy }}</p>
+                <p ng-if="task.startDate">Started On: {{ task.startDate }}</p>
+                <p>Last Updated: {{ task.updatedAt }}</p>
+                <p>Last Updated By: {{ task.updatedBy }}</p>
+                <p ng-if="task.endDate">Closed On: {{ task.endDate }}</p>
+            </div>
+
+            <div>
+                <h3>Logs</h3>
+                <div ng-repeat="log in logs">
+                    {{log | json}}
+                    <p>Number: {{ $index + 1 }}</p>
+                    <p>Message: {{ log.message }}</p>
+                    <p>Start Date: {{ log.startDate }}</p>
+                    <p>Status: {{ log.status }}</p>
+                </div>
+           </div>    
         </div>
-        <h3>Details</h3>
-        <h3>Logs</h3>
-        <h3>Attachments</h3>
-        <h3>Audit Trail</h3>
     </div>
 
     <div class="container">
