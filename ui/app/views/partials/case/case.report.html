@@ -54,8 +54,8 @@
 
     <div class="container">
         <h1 class="jumbotron-heading">Tasks</h1>
-        <p>Tasks: {{ report.tasks.length }}</p>
-        <div ng-repeat="task in report.tasks" ng-init="logs=report.getTaskLogs(task.id)">
+        <div ng-repeat="task in report.tasks" ng-init="logs=report.taskLogs(task.id)">
+            <p>Number: {{ $index + 1 }}</p>
             <p>Title: {{ task.title }}</p>
             <p>Author: {{ task.createdBy }}</p>
             <p>Status: {{ task.status }}</p>
@@ -78,10 +78,9 @@
                 <p ng-if="task.endDate">Closed On: {{ task.endDate }}</p>
             </div>
 
-            <div>
-                <h3>Logs</h3>
+            <div
+>                <h5>Logs</h5>
                 <div ng-repeat="log in logs">
-                    {{log | json}}
                     <p>Number: {{ $index + 1 }}</p>
                     <p>Message: {{ log.message }}</p>
                     <p>Start Date: {{ log.startDate }}</p>
@@ -93,9 +92,15 @@
 
     <div class="container">
         <h1 class="jumbotron-heading">Observables</h1>
-        <h3>Details</h3>
-        <h3>Report Findings</h3>
-        <h3>Audit Trail</h3>
+        <div ng-repeat="observable in report.observables">
+            <p>Data: {{ observable.data }}</p>
+            <p>Data Type: {{ observable.dataType }}</p>
+            <p>Message: {{ observable.message }}</p>
+            <p>Start Date: {{ observable.startDate }}</p>
+            <p>TLP: {{ observable.tlp }}</p>
+            <p>IOC: {{ observable.ioc }}</p>
+            <p>Status: {{ observable.status }}</p>
+        </div>
     </div>
 
 </div>
