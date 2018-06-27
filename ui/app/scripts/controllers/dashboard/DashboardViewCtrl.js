@@ -142,6 +142,25 @@
                 DashboardSrv.exportDashboard(this.dashboard);
             }
 
+
+            this.setRefreshInterval = function(dashboard) {
+                return $uibModal.open({
+                    //templateUrl: 'views/partials/dashboard/create.dialog.html',
+                    templateUrl: 'views/partials/dashboard/refresh.interval.html',
+                    controller: 'DashboardModalCtrl',
+                    controllerAs: '$vm',
+                    size: 'lg',
+                    resolve: {
+                        statuses: function() {
+                            return ['Private', 'Shared'];
+                        },
+                        dashboard: function() {
+                            return dashboard;
+                        }
+                    }
+                });
+            };
+
             this.resizeCharts = function() {
                 $timeout(function() {
                     for(var i=0; i < self.definition.items.length; i++) {

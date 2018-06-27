@@ -39,12 +39,31 @@
                 $uibModalInstance.dismiss('cancel');
             };
         })
-        .controller('DashboardModalCtrl', function($uibModalInstance, $state, statuses, dashboard) {
+        .controller('DashboardModalCtrl', function($rootScope, $interval, DashboardSrv, $uibModalInstance, $state, $scope, statuses, dashboard) {
             this.dashboard = dashboard;
             this.statuses = statuses;
 
             this.cancel = function() {
                 $uibModalInstance.dismiss();
+            };
+
+            this.closeWindow = function(){
+              $uibModalInstance.close();
+            };
+
+            this.setInterval = function(value){
+
+              if(value.equals('off')){
+                console.log('hello');
+                $uibModalInstance.close();
+              }
+              else if (value){
+                $interval(function(){
+                  $scope.$broadcast('refresh-charts');
+                  console.log(value);
+                }, value);
+              };
+
             };
 
             this.ok = function() {

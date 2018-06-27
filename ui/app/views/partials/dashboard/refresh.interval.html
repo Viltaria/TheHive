@@ -1,0 +1,38 @@
+<form class="form-horizontal" name="form" ng-submit="$vm.ok()" novalidate>
+    <div class="modal-header bg-primary">
+        <h3>Auto refresh interval options</h3>
+        <button class="btn btn-default" style="float: right;" ng-click="$vm.closeWindow()">
+          <i class="fa fa-window-close" height="100%" width="100%" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group" class="col-sm-10">
+          <table align="right" width="90%" height="100%">
+            <tr>
+              <th>Off</th>
+              <th>Seconds</th>
+              <th>Minutes</th>
+              <th>Hours</th>
+            </tr>
+            <tr>
+              <td><input type="radio" ng-model="value" value="off" ng-click="$vm.setInterval('off')"> Off</td>
+              <td><input type="radio" ng-model="value" value="5000" ng-click="$vm.setInterval(5000)"> 5 seconds</td>
+              <td><input type="radio" ng-model="value" value="60000" ng-click="$vm.setInterval(60000)"> 1 minute</td>
+              <td><input type="radio" ng-model="value" value="3600000" ng-click="$vm.setInterval(3600000)"> 1 hour</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><input type="radio" ng-model="value" value="10000" ng-click="$vm.setInterval(10000)"> 10 seconds</td>
+              <td><input type="radio" ng-model="value" value="50000" ng-click="$vm.setInterval(50000)"> 5 minutes</td>
+              <td><input type="radio" ng-model="value" value="7200000" ng-click="$vm.setInterval(7200000)"> 2 hours</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><input type="radio" ng-model="value" value="30000" ng-click="$vm.setInterval(30000)"> 30 seconds</td>
+              <td><input type="radio" ng-model="value" value="100000" ng-click="$vm.setInterval(100000)"> 10 minutes</td>
+              <td><input type="radio" ng-model="value" value="43200000" ng-click="$vm.setInterval(43200000)"> 12 hours</td>
+            </tr>
+          </table>
+        </div>
+    </div>
+</form>

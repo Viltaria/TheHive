@@ -216,6 +216,21 @@
                 });
             };
 
+            $scope.createTicket = function() {
+                $uibModal.open({
+                    scope: $scope,
+                    templateUrl: 'views/partials/case/case.create.ticket.html',
+                    controller: 'CaseCreateTicketModalCtrl',
+                    controllerAs: 'ticket',
+                    size: '',
+                    resolve: {
+                      templateSelected: function() {
+                        return false;
+                      }
+                    }
+                });
+            };
+
             $scope.mergeCase = function() {
                 $uibModal.open({
                     templateUrl: 'views/partials/case/case.merge.html',

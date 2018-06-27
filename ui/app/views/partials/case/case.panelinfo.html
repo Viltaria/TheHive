@@ -70,6 +70,12 @@
                 Unflag
             </a>
         </span>
+        <span class="ml-xs pull-right">
+            <a href ng-click="createTicket()" class="text-primary noline" uib-tooltip="Create Ticket">
+                <i class="text-muted fa fa-file-text"></i>
+                Create ticket
+            </a>
+        </span>
         <span class="ml-xs pull-right" ng-hide="isCaseClosed()">
             <a href ng-click="openCloseDialog()" class="text-muted noline" uib-tooltip="Close case">
                 <i class="text-muted fa fa-check-circle-o" ng-class="CloseCase" ng-mouseout="CloseCase='text-muted glyphicon-ok-circle'" ng-mouseover="CloseCase='text-success glyphicon-ok-sign'"></i>
