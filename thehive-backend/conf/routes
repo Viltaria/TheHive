@@ -117,6 +117,7 @@ DELETE   /api/dashboard/:dashboardId              controllers.DashboardCtrl.dele
 GET      /api/test                                controllers.TestCtrl.test()
 
 POST     /api/remedy/template/_search             controllers.RemedyTemplateCtrl.find()
+GET			/api/remedy/template/_search             controllers.RemedyTemplateCtrl.find()
 POST     /api/remedy/template                     controllers.RemedyTemplateCtrl.create()
 GET      /api/remedy/template/:remedyTemplateId   controllers.RemedyTemplateCtrl.get(remedyTemplateId)
 PATCH    /api/remedy/template/:remedyTemplateId   controllers.RemedyTemplateCtrl.update(remedyTemplateId)

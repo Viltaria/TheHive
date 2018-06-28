@@ -31,22 +31,19 @@
 			self.template = {};
 			self.lastParseTree = [];
 
-			self.myTest = function(){alert("it works");};
-
-			self.list = function(){
-			};
+			console.log(templates)
 
 			self.updateVariables = function() {
 				try {
 					var parseTree = Mustache.parse(self.template.body).
 					filter(function(variable) { return variable[0] === 'name'; }).
-					map(function(variable) { return {'name':variable[1]}; });
+					map(function(variable) { return {name:variable[1]}; });
 				}
 				catch(err) {
 					return;
 				}
 
-				//console.log(parseTree);
+				console.log(parseTree);
 				self.template.variables = parseTree;
 
 				/*var variableList = parseTree.reduce(function flattenVariablesFromParseTree(acc, v){
@@ -77,7 +74,7 @@
 				
 			};
 
-			self.editVariable = function(variable) {
+			self.editVariable = function(variable, index) {
 				var modal = $uibModal.open({
 					scope: $scope,
 					templateUrl: 'views/partials/admin/remedy-templates.observables.html',
@@ -85,18 +82,13 @@
 					size: 'lg',
 					resolve: {
 						variable: function() {
-							return variable;
+							return _.extend({}, variable);
 						}
 					}
 				});
 
 				modal.result.then(function(data) {
-						console.log(data)
-						if (self.template.observables) {
-							self.template.observables.push(data);
-						} else {
-							self.template.observables = [data];
-						}
+					self.template.variables[index] = data
 				});
 			};
 
@@ -121,19 +113,18 @@
             };
 		})
 		.controller('AdminRemedyTemplateObservablesCtrl', function($scope, $uibModalInstance, variable) {
-						$scope.variable = variable;
+						$scope.variable = Object.assign(variable);
 
             $scope.cancel = function() {
+								console.log($scope);
                 $uibModalInstance.dismiss();
             };
 
             $scope.save = function() {
-								$scope.parent.myTest()
-								console.log("saving variable")
-								console.log(variable)
-                $uibModalInstance.close();
+                $uibModalInstance.close(variable);
             };
 		})
+
 		.controller('AdminRemedyTemplateImportCtrl', function($scope, $uibModalInstance) {
 			var self = this;
             this.formData = {

@@ -1,6 +1,6 @@
 <h4 class="vpad10 text-primary">Template body</h4>
 <div class="form-group" ng-class="{ 'has-error' : templateEditForm.description.$invalid && !templateEditForm.description.$pristine }">
-    <div class="col-md-9">
+    <div class="row">
         <textarea ng-change="$vm.updateVariables()" class="form-control" name="description" ng-model="$vm.template.body" placeholder="template body" required rows="10" style="width:100%"></textarea>
         <p class="help-block" ng-show="templateEditForm.description.$invalid && !templateEditForm.description.$pristine">The template body is required.</p>
     </div>

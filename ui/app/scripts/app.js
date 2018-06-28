@@ -160,6 +160,11 @@ angular.module('thehive', ['ngAnimate', 'ngMessages', 'ngSanitize', 'ui.bootstra
                 controller: 'AdminRemedyTemplatesCtrl',
                 controllerAs: '$vm',
                 title: 'Remedy templates administration',
+								resolve: {
+										templates: function(RemedyTemplateSrv){
+												return RemedyTemplateSrv.list();
+										}
+								}
             })
             .state('app.administration.case-templates', {
                 url: '/case-templates',

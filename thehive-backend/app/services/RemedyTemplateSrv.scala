@@ -50,5 +50,6 @@ class RemedyTemplateSrv @Inject() (
 
   def find(queryDef: QueryDef, range: Option[String], sortBy: Seq[String]): (Source[RemedyTemplate, NotUsed], Future[Long]) = {
     findSrv[RemedyTemplateModel, RemedyTemplate](remedyTemplateModel, queryDef, range, sortBy)
+    // output format: { id, title, desc, variables[], templatebody }
   }
 }

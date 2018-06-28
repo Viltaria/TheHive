@@ -6,7 +6,7 @@
         <div class="form-group" ng-class="{ 'has-error' : observableForm.name.$invalid && !observableForm.name.$pristine }">
 
 						<div class="col-md-9"><label class="col-md-3 control-label">Variable name</label>
-						<input type="text" disabled>{{variable}}</input>
+						<input type="text" disabled ng-model="variable.name" />
 
                 <button class="btn btn-sm btn-default dropdown-toggle" uib-dropdown-toggle ng-disabled="selection.artifacts.length == 0" type="button">
                     {{uiSrv.actions[selection.Action]}}
@@ -24,11 +24,13 @@
         <div class="form-group" ng-class="{ 'has-error' : observableForm.description.$invalid && !observableForm.description.$pristine }">
             <label class="col-md-3 control-label">Variable description</label>
             <div class="col-md-9">
-                <textarea content="variable.description"></textarea>
+                <textarea ng-model="variable.description"></textarea>
             </div>
         </div>
 
     </div>
+		</div>
+		</div>
 
     <div class="modal-footer text-left">
         <button class="btn btn-default" ng-click="cancel()" type="button">Cancel</button>

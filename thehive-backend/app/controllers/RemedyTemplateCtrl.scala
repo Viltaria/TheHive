@@ -50,8 +50,7 @@ class RemedyTemplateCtrl @Inject() (
       .map(_ ⇒ NoContent)
   }
 
-  @Timed
-  def find: Action[Fields] = authenticated(Roles.read).async(fieldsBodyParser) { implicit request ⇒
+  /*  def find: Action[Fields] = authenticated(Roles.read).async(fieldsBodyParser) { implicit request ⇒
     val query = request.body.getValue("query").fold[QueryDef](QueryDSL.any)(_.as[QueryDef])
     val range = request.body.getString("range")
     val sort = request.body.getStrings("sort").getOrElse(Nil)
@@ -59,7 +58,10 @@ class RemedyTemplateCtrl @Inject() (
     val withStats = request.body.getBoolean("nstats").getOrElse(false)
 
     val (remedyTemplates, total) = remedyTemplateSrv.find(query, range, sort)
-    val remedyTemplatesWithStats = auxSrv(remedyTemplates, nparent, withStats, removeUnaudited = false)
+    //val remedyTemplatesWithStats = auxSrv(remedyTemplates, nparent, withStats, removeUnaudited = false)
+		val remedyTemplatesWithStats = remedyTemplates
     renderer.toOutput(OK, remedyTemplatesWithStats, total)
-  }
+  }*/
+  @Timed
+  def find() = Action { request ⇒ Ok("[ { \"id\":\"123\", \"title\":\"Test Template\", \"desc\":\"this is a template we made for testing\", \"variables\":[], \"templateBody\":\"this is a template without any variables\" } ]") }
 }

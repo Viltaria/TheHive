@@ -8,6 +8,8 @@
                     range: 'all'
                 }
             }).then(function(response) {
+								console.log("got template api response: ")
+								console.log(response)
                 defer.resolve(response.data);
             }, function(err) {
                 defer.reject(err);
