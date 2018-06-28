@@ -3,8 +3,6 @@
 
 	angular
 		.module('theHiveControllers')
-		.value('observables', {})
-		.value('templates', {})
 		.factory('Mustache', function(NotificationSrv, $window) {
 			if(!$window.Mustache){
 				NotificationSrv.error('Error loading mustache.js library');
@@ -15,7 +13,6 @@
 			$scope,
 			$uibModal,
 			RemedyTemplateSrv,
-			observables,
 			//NotificationSrv,
 			//UtilsSrv,
 			//ListsSrv,
@@ -29,24 +26,29 @@
 		) {
 			var self = this;
 
-			self.observables = observables;
-
+			self.variables = [];
 			self.templates = templates;
-			self.addObservables = function() {
-				var order = self.observables ? self.observables : 0;
+			self.template = {};
+			self.lastParseTree = [];
 
-				self.openObservableDialog({order: order}, "Add");
+			self.myTest = function(){alert("it works");};
+
+			self.list = function(){
 			};
 
 			self.updateVariables = function() {
 				try {
-					var parseTree = Mustache.parse(self.template.body);
+					var parseTree = Mustache.parse(self.template.body).
+					filter(function(variable) { return variable[0] === 'name'; }).
+					map(function(variable) { return {'name':variable[1]}; });
 				}
-				catch {
+				catch(err) {
 					return;
 				}
 
-				console.log(parseTree);
+				//console.log(parseTree);
+				self.template.variables = parseTree;
+
 				/*var variableList = parseTree.reduce(function flattenVariablesFromParseTree(acc, v){
 					if(v[0] === 'name'){
 					  return acc.concat([v]);
@@ -63,54 +65,38 @@
 					self.template.observables.push({'name':variableList[i]});
 				}*/
 				
-				for(int i=0;i<parseTree.length;i++){
+				/*for(var i=0;i<parseTree.length;i++){
 					if(parseTree[i] == '#') {
-						for(int j=0;j<parseTree[i][4].length;j++)
+						for(var j=0;j<parseTree[i][4].length;j++)
 							if(parseTree[i][4][j][0] == 'name')
-								self.template.observables.push({'name':parseTree[i][4][0][j], 'array':true});
+								self.variables.push({'name':parseTree[i][4][0][j], 'array':true});
 					}
 					else if(parseTree[i] == 'name')
-						self.template.observables.push({'name':parseTree[i], 'array':false});
-				}
+						self.variables.push({'name':parseTree[i], 'array':false});
+				}*/
 				
 			};
 
 			self.editVariable = function(variable) {
-			};
-
-			self.removeVariable = function(variable) {
-				console.log(variable);
-			};
-
-			self.openObservableDialog = function(obsv, action) {
 				var modal = $uibModal.open({
 					scope: $scope,
 					templateUrl: 'views/partials/admin/remedy-templates.observables.html',
 					controller: 'AdminRemedyTemplateObservablesCtrl',
 					size: 'lg',
 					resolve: {
-						action: function() {
-							return action;
-						},
-						obsv: function() {
-							return _.extend({}, obsv);
-						},
-						users: function() {
-							return UserSrv.list({ status: 'Ok' });
+						variable: function() {
+							return variable;
 						}
 					}
 				});
 
 				modal.result.then(function(data) {
-					if (action === 'Add') {
+						console.log(data)
 						if (self.template.observables) {
 							self.template.observables.push(data);
 						} else {
 							self.template.observables = [data];
 						}
-					} else {
-						self.template.observables[data.order] = data;
-					}
 				});
 			};
 
@@ -134,17 +120,18 @@
                     });
             };
 		})
-		.controller('AdminRemedyTemplateObservablesCtrl', function($scope, $uibModalInstance, action, observables, users) {
-            $scope.obsv = observables || {};
-            $scope.action = action;
-            $scope.users = users;
+		.controller('AdminRemedyTemplateObservablesCtrl', function($scope, $uibModalInstance, variable) {
+						$scope.variable = variable;
 
             $scope.cancel = function() {
                 $uibModalInstance.dismiss();
             };
 
-            $scope.addTask = function() {
-                $uibModalInstance.close(obsv);
+            $scope.save = function() {
+								$scope.parent.myTest()
+								console.log("saving variable")
+								console.log(variable)
+                $uibModalInstance.close();
             };
 		})
 		.controller('AdminRemedyTemplateImportCtrl', function($scope, $uibModalInstance) {
