@@ -63,5 +63,5 @@ class RemedyTemplateCtrl @Inject() (
     renderer.toOutput(OK, remedyTemplatesWithStats, total)
   }*/
   @Timed
-  def find() = Action { request ⇒ Ok("[ { \"id\":\"123\", \"title\":\"Test Template\", \"desc\":\"this is a template we made for testing\", \"variables\":[], \"templateBody\":\"this is a template without any variables\" } ]") }
+  def find() = Action { request ⇒ Ok("[ { \"id\":\"123\", \"name\":\"Test Template\", \"description\":\"this is a template we made for testing\", \"variables\":[], \"body\":\"this is a template without any variables\" } ]") }
 }

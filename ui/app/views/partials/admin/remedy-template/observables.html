@@ -3,37 +3,56 @@
         Variables ({{$vm.template.variables.length || 0}})
     </h4>
 
-    <div class="empty-message" ng-if="!$vm.template.variables || $vm.template.variables.length === 0">
+    <div class="empty-message" ng-if="!$vm.groupedVariables || $vm.groupedVariables.length === 0">
         No variables were found in the template.
     </div>
 
-    <div ng-if="$vm.template.variables.length !== 0" ui-sortable="$vm.sortableOptions" ng-model="$vm.template.variables">
-        <div class="observable-item" ng-init="isCollapsed=true" ng-repeat="t in $vm.template.variables">
-            <div class="panel-heading">
-                <span class="drag-handle text-primary clickable mr-xxs">
-                    <i class="fa fa-bars"></i>
-                </span>
-                <span>
-                    <a href ng-click="isCollapsed=!isCollapsed">
-                        <i class="fa" ng-class="{'fa-caret-down': isCollapsed, 'fa-caret-up': !isCollapsed}"></i>
-                    </a>
-                </span>
-                <span class="hpad5">{{t.name}}</span>
+    <div ng-if="$vm.groupedVariables.length !== 0" ng-model="$vm.groupedVariables" ui-sortable="$vm.sortableOptions">
+        <div class="task-item" ng-init="isCollapsed=true" ng-repeat="t in $vm.groupedVariables">
 
-                <span class="mr-xxs" ng-if="t.type">{{t.type}}</span>
+            <div ng-if="t.group">
+                <div class="panel-heading">
+                    <span class="drag-handle text-primary clickable mr-xxs">
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <span class="hpad5">GROUP {{t.name}}</div>
+                </div>
 
-                <span class="pull-right">
-										<span class="mr-xxs" ng-hide="t.type">No type selected</span>
-                    <a class="text-default" href ng-click="$vm.editVariable(t, $index)">
-                        <i class="fa fa-pencil"></i>&nbsp;Edit</a>
-                    <span class="hpad5"></span>
-                </span>
+                <div class="panel-body">
+                    <div ng-repeat="tem in t.variables">
+                    {{tem.name}}
+                    </div>
+                </div>
             </div>
-            <div class="panel-body" ng-hide="isCollapsed">
-                <p btf-markdown="t.description" ng-show="t.description != ''"></p>
-                <p class="text-warning" ng-show="!t.description || t.description===''">
-                    <em>No description specified</em>
-                </p>
+            
+            <div ng-if="!t.group">
+                <div class="panel-heading">
+                    <span class="drag-handle text-primary clickable mr-xxs">
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <span ng-hide="t.group">
+                        <a href ng-click="isCollapsed=!isCollapsed">
+                            <i class="fa" ng-class="{'fa-caret-down': isCollapsed, 'fa-caret-up': !isCollapsed}"></i>
+                        </a>
+                    </span>
+                    <span class="hpad5">{{t.name}}</span>
+
+                    <span class="mr-xxs" ng-show="isCollapsed">{{t.description.length > 15 ? t.description.slice(0,14)+"..." : t.description}}</span>
+
+                    <span class="pull-right">
+                            <span class="mr-xxs" ng-if="t.dataType && t.dataType != 'any'">Type: {{t.dataType}}</span>
+                                                                                    <span class="mr-xxs" ng-hide="t.dataType && t.dataType != 'any'">No type selected</span>
+                        <a class="text-default" href ng-click="$vm.editVariable(t)">
+                            <i class="fa fa-pencil"></i>&nbsp;Edit</a>
+                        <span class="hpad5"></span>
+                    </span>
+                </div>
+                <div class="panel-body" ng-hide="isCollapsed">
+                    <p btf-markdown="t.description" ng-show="t.description != ''"></p>
+                    <p class="text-warning" ng-show="!t.description || t.description===''">
+                        <em>No description specified</em>
+                    </p>
+                </div>
             </div>
         </div>
     </div>

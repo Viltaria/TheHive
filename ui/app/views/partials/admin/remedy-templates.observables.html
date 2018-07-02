@@ -8,10 +8,16 @@
 						<div class="col-md-9"><label class="col-md-3 control-label">Variable name</label>
 						<input type="text" disabled ng-model="variable.name" />
 
-                <button class="btn btn-sm btn-default dropdown-toggle" uib-dropdown-toggle ng-disabled="selection.artifacts.length == 0" type="button">
-                    {{uiSrv.actions[selection.Action]}}
-                    <span class="caret"></span>
-                </button>
+      <input type="hidden" name="dataType" ng-model="variable.dataType">
+        <div class="btn-group" uib-dropdown>
+            <button type="button" class="btn btn-default" uib-dropdown-toggle>{{variable.dataType}}&nbsp;&nbsp;<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" uib-dropdown-menu>
+                <li ng-repeat="type in types">
+                    <a ng-click="selectDataType(type)">{{type}}</a>
+                </li>
+            </ul>
+        </div>
 <!--
             <label class="col-md-3 control-label">Observable title
                 <i class="fa fa-asterisk text-danger"></i>
