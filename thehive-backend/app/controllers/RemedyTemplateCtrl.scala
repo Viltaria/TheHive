@@ -6,6 +6,7 @@ import scala.concurrent.ExecutionContext
 
 import play.api.http.Status
 import play.api.mvc._
+import play.api.Logger
 
 import models.Roles
 import services.RemedyTemplateSrv
@@ -28,20 +29,22 @@ class RemedyTemplateCtrl @Inject() (
 
   @Timed
   def create: Action[Fields] = authenticated(Roles.admin).async(fieldsBodyParser) { implicit request ⇒
+    Logger.info("create in RemedyTemplateCtrl")
+    Logger.info(s"body: ${request.body}")
     remedyTemplateSrv.create(request.body)
-      .map(caze ⇒ renderer.toOutput(CREATED, caze))
+      .map(template ⇒ renderer.toOutput(CREATED, template))
   }
 
   @Timed
   def get(id: String): Action[AnyContent] = authenticated(Roles.read).async { implicit request ⇒
     remedyTemplateSrv.get(id)
-      .map(caze ⇒ renderer.toOutput(OK, caze))
+      .map(template ⇒ renderer.toOutput(OK, template))
   }
 
   @Timed
   def update(id: String): Action[Fields] = authenticated(Roles.admin).async(fieldsBodyParser) { implicit request ⇒
     remedyTemplateSrv.update(id, request.body)
-      .map(caze ⇒ renderer.toOutput(OK, caze))
+      .map(template ⇒ renderer.toOutput(OK, template))
   }
 
   @Timed
@@ -50,7 +53,8 @@ class RemedyTemplateCtrl @Inject() (
       .map(_ ⇒ NoContent)
   }
 
-  /*  def find: Action[Fields] = authenticated(Roles.read).async(fieldsBodyParser) { implicit request ⇒
+  @Timed
+  def find: Action[Fields] = authenticated(Roles.read).async(fieldsBodyParser) { implicit request ⇒
     val query = request.body.getValue("query").fold[QueryDef](QueryDSL.any)(_.as[QueryDef])
     val range = request.body.getString("range")
     val sort = request.body.getStrings("sort").getOrElse(Nil)
@@ -59,9 +63,11 @@ class RemedyTemplateCtrl @Inject() (
 
     val (remedyTemplates, total) = remedyTemplateSrv.find(query, range, sort)
     //val remedyTemplatesWithStats = auxSrv(remedyTemplates, nparent, withStats, removeUnaudited = false)
-		val remedyTemplatesWithStats = remedyTemplates
+    val remedyTemplatesWithStats = remedyTemplates
     renderer.toOutput(OK, remedyTemplatesWithStats, total)
-  }*/
-  @Timed
-  def find() = Action { request ⇒ Ok("[ { \"id\":\"123\", \"title\":\"Test Template\", \"desc\":\"this is a template we made for testing\", \"variables\":[], \"templateBody\":\"this is a template without any variables\" } ]") }
+  }
+  // def find() = Action { request ⇒
+  //   Logger.info("findingerw")
+  //   Ok("[ { \"id\":\"321\", \"title\":\"Test Template\", \"desc\":\"this is a template we made for testing\", \"variables\":[], \"templateBody\":\"this is a template without any variables\" } ]")
+  // }
 }

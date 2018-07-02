@@ -14,6 +14,8 @@ import org.elastic4play.controllers.Fields
 import org.elastic4play.database.ModifyConfig
 import org.elastic4play.services._
 
+import play.api.Logger
+
 @Singleton
 class RemedyTemplateSrv @Inject() (
     remedyTemplateModel: RemedyTemplateModel,
@@ -25,8 +27,11 @@ class RemedyTemplateSrv @Inject() (
     implicit val ec: ExecutionContext,
     implicit val mat: Materializer) {
 
-  def create(fields: Fields)(implicit authContext: AuthContext): Future[RemedyTemplate] =
+  def create(fields: Fields)(implicit authContext: AuthContext): Future[RemedyTemplate] = {
+    Logger.info("create in RemedyTemplateSrv")
+    Logger.info(s"$fields")
     createSrv[RemedyTemplateModel, RemedyTemplate](remedyTemplateModel, fields)
+  }
 
   def get(id: String): Future[RemedyTemplate] =
     getSrv[RemedyTemplateModel, RemedyTemplate](remedyTemplateModel, id)

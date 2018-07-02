@@ -91,6 +91,9 @@ class CaseSrv(
   }
 
   def create(fields: Fields, template: Option[CaseTemplate] = None)(implicit authContext: AuthContext): Future[Case] = {
+    Logger.info("create in CaseSrv")
+    Logger.info(s"$fields")
+
     val fieldsWithOwner = fields.get("owner") match {
       case None    ⇒ fields.set("owner", authContext.userId)
       case Some(_) ⇒ fields
@@ -99,8 +102,13 @@ class CaseSrv(
       case None    ⇒ fieldsWithOwner
       case Some(t) ⇒ applyTemplate(t, fieldsWithOwner)
     }
+
+    Logger.info("templatedCaseFields")
+    Logger.info(s"$templatedCaseFields")
     createSrv[CaseModel, Case](caseModel, templatedCaseFields.unset("tasks"))
       .flatMap { caze ⇒
+        Logger.info("flatMap createSrv")
+        Logger.info(s"$caze")
         val taskFields = fields.getValues("tasks").collect {
           case task: JsObject ⇒ Fields(task)
         } ++ template.map(_.tasks().map(Fields(_))).getOrElse(Nil)
