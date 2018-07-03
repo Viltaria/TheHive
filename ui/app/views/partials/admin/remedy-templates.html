@@ -13,7 +13,7 @@
                 <h4 class="mt-m text-primary">Current templates</h4>
                 <ul class="nav nav-pills nav-stacked" ng-show="$vm.templates">
                     <li ng-class="{'active': $index === $vm.templateIndex}" ng-repeat="template in $vm.templates">
-                        <a href ng-click="$vm.loadTemplate(template)">{{template.name}}</a>                        
+                        <a href ng-click="$vm.loadTemplate(template)">{{template.name}}</a>
                     </li>
                 </ul>
                 <div ng-hide="$vm.templates.length != 0">
