@@ -155,12 +155,62 @@
 
             self.saveTemplate = function() {
                 alert("not implemented");
+                if(self.template.id === -1)
+                    self.createTemplate(self.template)
+                else
+                    self.updateTemplate(self.template)
+            };
+
+            self.createTemplate = function(template) {
+                return RemedyTemplateSrv.create(template).then(
+                    function(response) {
+                        self.getList(response.data.id);
+
+                        $scope.$emit('templates:refresh');
+
+                        NotificationSrv.log('The template [' + template.name + '] has been successfully created', 'success');
+                    },
+                    function(response) {
+                        NotificationSrv.error('TemplateCtrl', response.data, response.status);
+                    }
+                );
+            };
+
+            self.updateTemplate = function(template) {
+                console.log(template)
+                return RemedyTemplateSrv.update(template.id, _.omit(template, 'id', 'user')).then(
+                    function(response) {
+                        self.getList(template.id);
+
+                        $scope.$emit('templates:refresh');
+
+                        NotificationSrv.log('The template [' + template.name + '] has been successfully updated', 'success');
+                    },
+                    function(response) {
+                        NotificationSrv.error('TemplateCtrl', response.data, response.status);
+                    }
+                );
+            };
+
+            self.getList = function(id) {
+                RemedyTemplateSrv.list().then(function(templates) {
+                    self.templates = templates;
+
+                    if (templates.length === 0) {
+                        self.templateIndex = 0;
+                        self.newTemplate();
+                    } else if (id) {
+                        self.loadTemplateById(id);
+                    } else {
+                        self.loadTemplateById(templates[0].id, 0);
+                    }
+                });
             };
 
             self.loadTemplate = function(template) {
                 self.template = template;
                 self.savedVariables = [];
-                self.groupedVariables = [];
+                self.updateVariables()
             };
 
             self.saveAs = function(data, filename){
@@ -203,7 +253,7 @@
                 modal.result.then(function(data) {
                     for (var i = 0; i < self.template.variables.length; i++)
                         if(self.template.variables[i].name === data.name)
-                            self.template.variables[i] = data;
+                            self.template.variables[i] = _.omit(data, 'group');
 
                     self.groupedVariables = self.groupVariables()
                 });
@@ -221,7 +271,7 @@
 
                 modalInstance.result
                     .then(function(template) {
-                        self.template = template
+                        self.loadTemplate(template)
                     })
                     .catch(function(err) {
                         if (err && err.status) {
@@ -263,6 +313,7 @@
             };
             $scope.getDataTypeList();
             $scope.variable = variable;
+            console.log(variable)
 
             $scope.selectDataType = function(dataType) {
                 $scope.variable.dataType = dataType;

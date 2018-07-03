@@ -8,50 +8,75 @@
     </div>
 
     <div ng-if="$vm.groupedVariables.length !== 0" ng-model="$vm.groupedVariables" ui-sortable="$vm.sortableOptions">
-        <div class="task-item" ng-init="isCollapsed=true" ng-repeat="t in $vm.groupedVariables">
-
-            <div ng-if="t.group">
-                <div class="panel-heading">
-                    <span class="drag-handle text-primary clickable mr-xxs">
-                        <i class="fa fa-bars"></i>
-                    </span>
-                    <span class="hpad5">GROUP {{t.name}}</div>
-                </div>
-
-                <div class="panel-body">
-                    <div ng-repeat="tem in t.variables">
-                    {{tem.name}}
-                    </div>
-                </div>
-            </div>
+        <div class="variable-item" ng-init="isCollapsed=true" ng-repeat="v in $vm.groupedVariables">
             
-            <div ng-if="!t.group">
-                <div class="panel-heading">
-                    <span class="drag-handle text-primary clickable mr-xxs">
-                        <i class="fa fa-bars"></i>
-                    </span>
-                    <span ng-hide="t.group">
-                        <a href ng-click="isCollapsed=!isCollapsed">
-                            <i class="fa" ng-class="{'fa-caret-down': isCollapsed, 'fa-caret-up': !isCollapsed}"></i>
-                        </a>
-                    </span>
-                    <span class="hpad5">{{t.name}}</span>
+            <div ng-if="!v.group">
+            <div class="panel-heading">
+                <span class="drag-handle text-primary clickable mr-xxs">
+                    <i class="fa fa-bars"></i>
+                </span>
+                <span>
+                    <a href ng-click="isCollapsed=!isCollapsed">
+                        <i class="fa" ng-class="{'fa-caret-down': isCollapsed, 'fa-caret-up': !isCollapsed}"></i>
+                    </a>
+                </span>
+                <span class="hpad5">{{v.name}}</span>
 
-                    <span class="mr-xxs" ng-show="isCollapsed">{{t.description.length > 15 ? t.description.slice(0,14)+"..." : t.description}}</span>
+                <span class="mr-xxs" ng-show="isCollapsed">{{v.description.length > 15 ? v.description.slice(0,14)+"..." : v.description}}</span>
 
-                    <span class="pull-right">
-                            <span class="mr-xxs" ng-if="t.dataType && t.dataType != 'any'">Type: {{t.dataType}}</span>
-                                                                                    <span class="mr-xxs" ng-hide="t.dataType && t.dataType != 'any'">No type selected</span>
-                        <a class="text-default" href ng-click="$vm.editVariable(t)">
-                            <i class="fa fa-pencil"></i>&nbsp;Edit</a>
-                        <span class="hpad5"></span>
-                    </span>
-                </div>
-                <div class="panel-body" ng-hide="isCollapsed">
-                    <p btf-markdown="t.description" ng-show="t.description != ''"></p>
-                    <p class="text-warning" ng-show="!t.description || t.description===''">
-                        <em>No description specified</em>
-                    </p>
+                <span class="pull-right">
+                        <span class="mr-xxs" ng-if="v.dataType && v.dataType != 'any'">Type: {{v.dataType}}</span>
+                                                                                <span class="mr-xxs" ng-if="!v.group && !(v.dataType || v.dataType != 'any')">No type selected</span>
+                    <a class="text-default" href ng-click="$vm.editVariable(v)">
+                        <i class="fa fa-pencil"></i>&nbsp;Edit</a>
+                    <span class="hpad5"></span>
+                </span>
+            </div>
+
+            <div class="panel-body" ng-hide="isCollapsed" ng-if="!v.group">
+                <p btf-markdown="v.description" ng-show="v.description != ''"></p>
+                <p class="text-warning" ng-show="!v.description || v.description===''">
+                    <em>No description specified</em>
+                </p>
+            </div>
+            </div>
+
+            <div class="panel-heading" ng-if="v.group">
+                <span class="drag-handle text-primary clickable mr-xxs">
+                    <i class="fa fa-bars"></i>
+                </span>
+                <span class="hpad5">Group {{v.name}}</span>
+            </div>
+            <div class="panel-body" ng-if="v.group">
+                <div ng-model="v.variables" ui-sortable>
+                    <div class="grouped-variable-item" ng-repeat="v2 in v.variables" ng-init="isCollapsed=true">
+                        <div class="panel-heading">
+                            <span class="drag-handle text-primary clickable mr-xxs">
+                                <i class="fa fa-bars"></i>
+                            </span>
+                            <span>
+                                <a href ng-click="isCollapsed=!isCollapsed">
+                                    <i class="fa" ng-class="{'fa-caret-down': isCollapsed, 'fa-caret-up': !isCollapsed}"></i>
+                                </a>
+                            </span>
+                            <span class="hpad5">{{v2.name.split(".")[1]}}</span>
+                            <span class="mr-xxs" ng-show="isCollapsed">{{v.description.length > 15 ? v.description.slice(0,14)+"..." : v.description}}</span>
+
+                            <span class="pull-right">
+                                    <span class="mr-xxs" ng-if="v2.dataType && v2.dataType != 'any'">Type: {{v2.dataType}}</span>
+                                    <span class="mr-xxs" ng-if="!(v2.dataType && v2.dataType != 'any')">No type selected</span>
+                                <a class="text-default" href ng-click="$vm.editVariable(v2)">
+                                    <i class="fa fa-pencil"></i>&nbsp;Edit</a>
+                                <span class="hpad5"></span>
+                            </span>
+                        </div>
+                        <div class="panel-body" ng-hide="isCollapsed">
+                            <p btf-markdown="v2.description" ng-show="v2.description != ''"></p>
+                            <p class="text-warning" ng-show="!v2.description || v2.description===''">
+                                <em>No description specified</em>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
