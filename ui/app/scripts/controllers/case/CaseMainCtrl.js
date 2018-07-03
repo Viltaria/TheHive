@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     angular.module('theHiveControllers').controller('CaseMainCtrl',
-        function($scope, $rootScope, $state, $stateParams, $q, $uibModal, CaseTabsSrv, CaseSrv, MetricsCacheSrv, UserInfoSrv, MispSrv, StreamSrv, StreamStatSrv, NotificationSrv, UtilsSrv, CaseResolutionStatus, CaseImpactStatus, caze) {
+        function($scope, $rootScope, $state, $stateParams, $q, $uibModal, $http, CaseTabsSrv, CaseSrv, MetricsCacheSrv, UserInfoSrv, MispSrv, StreamSrv, StreamStatSrv, NotificationSrv, UtilsSrv, CaseResolutionStatus, CaseImpactStatus, caze) {
             $scope.CaseResolutionStatus = CaseResolutionStatus;
             $scope.CaseImpactStatus = CaseImpactStatus;
 
@@ -213,6 +213,60 @@
                     templateUrl: 'views/partials/case/case.reopen.html',
                     controller: 'CaseReopenModalCtrl',
                     size: ''
+                });
+            };
+
+            $scope.caseReport = function() {
+                $uibModal.open({
+                    templateUrl: 'views/partials/case/case.report.html',
+                    controller: 'CaseReportCtrl',
+                    controllerAs: 'report',
+                    size: '',
+                    resolve: {
+                        caze: function() {
+                            return $scope.caze;
+                        },
+                        tasks: function() {
+                            var defer = $q.defer();
+                            $http.post('./api/case/task/_search', {
+                                query: {
+                                    "_parent": {
+                                        "_type": "case",
+                                        "_query": {
+                                            "_id": $scope.caze.id
+                                        }
+                                    }
+                                },
+                                range: "all"
+                            })
+                            .then(function(response) {
+                                defer.resolve(response.data);
+                            }, function(err) {
+                                defer.reject(err);
+                            })
+                            return defer.promise;
+                        },
+                        observables: function() {
+                            var defer = $q.defer();
+                            $http.post('./api/case/artifact/_search', {
+                                query: {
+                                    "_parent": {
+                                        "_type": "case",
+                                        "_query": {
+                                            "_id": $scope.caze.id
+                                        }
+                                    }
+                                },
+                                range: "all"
+                            })
+                            .then(function(response) {
+                                defer.resolve(response.data);
+                            }, function (err) {
+                                defer.reject(err);
+                            })
+                            return defer.promise;
+                        }
+                    }
                 });
             };
 

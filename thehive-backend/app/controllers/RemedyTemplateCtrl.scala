@@ -66,8 +66,4 @@ class RemedyTemplateCtrl @Inject() (
     val remedyTemplatesWithStats = remedyTemplates
     renderer.toOutput(OK, remedyTemplatesWithStats, total)
   }
-  // def find() = Action { request ⇒
-  //   Logger.info("findingerw")
-  //   Ok("[ { \"id\":\"321\", \"title\":\"Test Template\", \"desc\":\"this is a template we made for testing\", \"variables\":[], \"templateBody\":\"this is a template without any variables\" } ]")
-  // }
 }

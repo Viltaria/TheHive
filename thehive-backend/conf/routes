@@ -118,7 +118,7 @@ GET      /api/test                                controllers.TestCtrl.test()
 
 GET      /api/remedy                     controllers.RemedyTemplateCtrl.find()
 GET		 /api/remedy/_search             controllers.RemedyTemplateCtrl.find()
-POST     /api/remedy/                    controllers.RemedyTemplateCtrl.create()
+POST     /api/remedy                     controllers.RemedyTemplateCtrl.create()
 GET      /api/remedy/template/:remedyTemplateId   controllers.RemedyTemplateCtrl.get(remedyTemplateId)
 PATCH    /api/remedy/template/:remedyTemplateId   controllers.RemedyTemplateCtrl.update(remedyTemplateId)
 DELETE   /api/remedy/template/:remedyTemplateId   controllers.RemedyTemplateCtrl.delete(remedyTemplateId)

@@ -34,7 +34,7 @@ trait RemedyTemplateAttributes { _: AttributeDef ⇒
   val title = attribute("title", F.textFmt, "Name of the template")
   val description = attribute("description", F.textFmt, "Description of template")
   val variables = multiAttribute("variables", F.objectFmt(templateAttributes), "List of template variables")
-  val templateString = attribute("templateString", F.textFmt, "Template string")
+  val body = attribute("body", F.textFmt, "Template string")
 }
 
 @Singleton
