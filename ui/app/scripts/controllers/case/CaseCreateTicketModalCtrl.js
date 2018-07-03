@@ -2,9 +2,10 @@
     'use strict';
 
     angular.module('theHiveControllers')
-        .controller('CaseCreateTicketModalCtrl', function(templateSelected, $timeout, $http, $q, $uibModal, $scope, $uibModalInstance, NotificationSrv) {
+        .controller('CaseCreateTicketModalCtrl', function(caze, templateSelected, $timeout, $http, $q, $uibModal, $scope, $uibModalInstance, NotificationSrv) {
             var self = this;
             self.templateSelected = templateSelected;
+            self.caze = caze;
 
             self.templates = [
               {
@@ -64,6 +65,9 @@
                     controllerAs: 'coco',
                     size: '',
                     resolve: {
+                        caze: function() {
+                          return self.caze;
+                        },
                         template: function() {
                            var t;
                             angular.forEach(self.templates, function(template, index) {

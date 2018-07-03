@@ -53,17 +53,20 @@
 
             this.setInterval = function(value){
 
-              if(value.equals('off')){
-                console.log('hello');
-                $uibModalInstance.close();
-              }
-              else if (value){
                 $interval(function(){
                   $scope.$broadcast('refresh-charts');
                   console.log(value);
                 }, value);
-              };
 
+
+            };
+
+            this.cancelInterval = function (value) {
+              var intervalPromise = $interval(function () {
+               }, 5000);
+              $scope.$on('$destroy', function () {
+                $interval.cancel(intervalPromise);
+              })
             };
 
             this.ok = function() {

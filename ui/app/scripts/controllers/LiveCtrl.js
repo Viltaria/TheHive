@@ -9,5 +9,6 @@
             } else {
                 $scope.targetWindow = '_blank';
             }
+
         });
 })();

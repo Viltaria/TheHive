@@ -15,7 +15,7 @@
               <th>Hours</th>
             </tr>
             <tr>
-              <td><input type="radio" ng-model="value" value="off" ng-click="$vm.setInterval('off')"> Off</td>
+              <td><input type="radio" ng-model="value" value="0" ng-click="$vm.cancelInterval(0)"> Off</td>
               <td><input type="radio" ng-model="value" value="5000" ng-click="$vm.setInterval(5000)"> 5 seconds</td>
               <td><input type="radio" ng-model="value" value="60000" ng-click="$vm.setInterval(60000)"> 1 minute</td>
               <td><input type="radio" ng-model="value" value="3600000" ng-click="$vm.setInterval(3600000)"> 1 hour</td>

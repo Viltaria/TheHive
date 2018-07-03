@@ -2,34 +2,12 @@
     'use strict';
 
     angular.module('theHiveControllers')
-        .controller('CaseCreateTicketObservablesModalCtrl', function($uibModal, observables, template, $scope, $uibModalInstance, NotificationSrv) {
+        .controller('CaseCreateTicketObservablesModalCtrl', function(caze, $uibModal, observables, template, $scope, $uibModalInstance, NotificationSrv) {
             var self = this;
             self.template = template;
-            // self.observables = observables;
-
-            self.observables = [
-              {
-                name: 'coconut',
-                type: 'domain'
-              },
-              {
-                name: 'cherry',
-                type: 'domain',
-              },
-              {
-                name: 'watermelon',
-                type: 'ip'
-              },
-              {
-                name: 'milktea',
-                type: 'ip'
-              },
-              {
-                name: 'raspberry',
-                type: 'file'
-              }
-            ]
-
+            self.caze = caze;
+            self.observables = observables;
+        
             self.updateSelection = function (index) {
               if (self.observables[index].selected == undefined) {
                 self.observables[index].selected = true;
@@ -46,6 +24,9 @@
                     controllerAs: 'ticket',
                     size: '',
                     resolve: {
+                      caze: function() {
+                        return self.caze;
+                      },
                       templateSelected: function() {
                         return self.template;
                       }
@@ -61,7 +42,21 @@
                     controllerAs: 'preview',
                     size: '',
                     resolve: {
-
+                      caze: function() {
+                        return self.caze;
+                      },
+                      template: function() {
+                        return self.template;
+                      },
+                      observables: function() {
+                        var o = [];
+                        angular.forEach(self.observables, function(subscription, index) {
+                          if (subscription.selected) {
+                            o.push(subscription);
+                          }
+                        });
+                        return o;
+                      }
                     }
                 });
             };

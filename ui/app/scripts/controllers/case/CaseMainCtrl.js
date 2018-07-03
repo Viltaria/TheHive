@@ -224,7 +224,11 @@
                     controllerAs: 'ticket',
                     size: '',
                     resolve: {
+                      caze: function() {
+                        return $scope.caze;
+                      },
                       templateSelected: function() {
+
                         return false;
                       }
                     }
