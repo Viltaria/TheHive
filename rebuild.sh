@@ -9,3 +9,4 @@ sudo cp -r ~/TheHive-TicketTemplates/target/universal/stage /opt/thehive
 sudo chown -R thehive /opt/thehive
 
 sudo service thehive restart
+
