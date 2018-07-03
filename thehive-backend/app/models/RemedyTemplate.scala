@@ -38,7 +38,7 @@ trait RemedyTemplateAttributes { _: AttributeDef ⇒
 }
 
 @Singleton
-class RemedyTemplateModel @Inject() (variableModel: VariableModel) extends ModelDef[RemedyTemplateModel, RemedyTemplate]("template", "Remedy template", "/remedy") with RemedyTemplateAttributes {
+class RemedyTemplateModel @Inject() (variableModel: VariableModel) extends ModelDef[RemedyTemplateModel, RemedyTemplate]("template", "Remedy template", "/remedy/template") with RemedyTemplateAttributes {
   def templateAttributes: Seq[Attribute[_]] = variableModel
     .attributes
     .filter(_.isForm)
