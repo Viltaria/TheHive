@@ -160,6 +160,7 @@
         };
 
         this.update = function(id, dashboard) {
+          console.log(id);
             var db = _.pick(dashboard, 'id', 'title', 'description', 'status', 'definition');
 
             return $http.patch(baseUrl + '/' + id, db);

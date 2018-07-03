@@ -15,6 +15,12 @@
                 label: 'Tasks',
                 state: 'app.case.tasks'
             },
+            'timeline': {
+                name: 'timeline',
+                active: false,
+                label: 'Timeline',
+                state: 'app.case.timeline'
+            },
             'observables': {
                 name: 'observables',
                 active: false,

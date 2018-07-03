@@ -1,0 +1,42 @@
+<div class="modal-header bg-primary">
+    <h3 class="modal-title">Observables</h3>
+</div>
+<div class="modal-body">
+    <!--<div class="empty-message mv-s" ng-show="dialog.search.cases.length === 0">
+        Please search for the case to be merged with <br>
+        <strong>#{{dialog.caze.caseId}}:
+            {{dialog.caze.title}}</strong>
+    </div>-->
+    <div>
+      <div class="case-template-section">
+          <h4>
+              Observables ({{coco.observables.length || 0}})
+
+          </h4>
+          <div ng-if="coco.observables.length !== 0">
+            <!-- <div ng-if="ticket.templates.length !== 0" ui-sortable="$vm.sortableOptions" ng-model="$vm.template.tasks"> -->
+              <div ng-init="isCollapsed=true" class="task-item clickable" ng-class="{'outline': observable.selected }" ng-click="coco.updateSelection($index)" ng-repeat="observable in coco.observables">
+                  <div class="panel-heading">
+
+                      <span class="hpad5">{{ observable.name }}</span>
+                      <!--<span class="pull-right">{{ observable.type }}</span>-->
+                      <span class="pull-right">
+                          <a href ng-click="isCollapsed=!isCollapsed">
+                              <i class="fa" ng-class="{'fa-caret-down': isCollapsed, 'fa-caret-up': !isCollapsed}"></i>
+                              <select ng-if="!isCollapsed">
+                                <option>meow</option>
+                                <option>woof</option>
+                              </select>
+                          </a>
+                      </span>
+                      <span class="pull-right">{{ observable.type }}</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="modal-footer text-left">
+    <button class="btn btn-default" ng-click="previous()" type="button">Previous</button>
+    <button class="btn btn-primary pull-right" ng-click="preview()" type="button">Preview</button>
+</div>

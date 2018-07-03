@@ -250,6 +250,14 @@ angular.module('thehive', ['ngAnimate', 'ngMessages', 'ngSanitize', 'ui.bootstra
                     tab: 'tasks'
                 }
             })
+            .state('app.case.timeline', {
+                url: '/timeline',
+                templateUrl: 'views/partials/case/case.timeline.html',
+                controller: 'CaseTimelineCtrl',
+                data: {
+                    tab: 'timeline'
+                }
+            })
             .state('app.case.links', {
                 url: '/links',
                 templateUrl: 'views/partials/case/case.links.html',
