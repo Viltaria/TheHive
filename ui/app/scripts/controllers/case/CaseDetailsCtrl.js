@@ -73,6 +73,10 @@
                 itemId: attachment.case_task.id
             });
         };
+
+        $scope.generateReport = function() {
+            console.log("BUTTON PRESSED");
+        };
     });
 
     angular.module('theHiveControllers').controller('CaseCustomFieldsCtrl', function($scope, $uibModal, CustomFieldsCacheSrv) {
