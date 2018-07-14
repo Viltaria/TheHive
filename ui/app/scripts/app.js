@@ -154,18 +154,6 @@ angular.module('thehive', ['ngAnimate', 'ngMessages', 'ngSanitize', 'ui.bootstra
                     }
                 }
             })
-            .state('app.administration.remedy-templates', {
-                url: '/remedy-templates',
-                templateUrl: 'views/partials/admin/remedy-templates.html',
-                controller: 'AdminRemedyTemplatesCtrl',
-                controllerAs: '$vm',
-                title: 'Remedy templates administration',
-								resolve: {
-										templates: function(RemedyTemplateSrv){
-												return RemedyTemplateSrv.list();
-										}
-								}
-            })
             .state('app.administration.case-templates', {
                 url: '/case-templates',
                 templateUrl: 'views/partials/admin/case-templates.html',
@@ -177,7 +165,19 @@ angular.module('thehive', ['ngAnimate', 'ngMessages', 'ngSanitize', 'ui.bootstra
                         return CaseTemplateSrv.list();
                     },
                     fields: function(CustomFieldsCacheSrv){
-                        return CustomFieldsCacheSrv.all()
+                        return CustomFieldsCacheSrv.all();
+                    }
+                }
+            })
+            .state('app.administration.case-reporting-templates', {
+                url: '/case-reporting-templates',
+                templateUrl: 'views/partials/admin/case-reporting-templates.html',
+                controller: 'AdminCaseReportingTemplatesCtrl',
+                controllerAs: '$vm',
+                title: 'Case Reporting Templates',
+                resolve: {
+                    templates: function(CaseReportTemplateSrv) {
+                        return CaseReportTemplateSrv.list();
                     }
                 }
             })

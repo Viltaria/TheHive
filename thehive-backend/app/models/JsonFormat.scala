@@ -16,10 +16,9 @@ object JsonFormat {
   implicit val taskStatusFormat: Format[TaskStatus.Type] = enumFormat(TaskStatus)
   implicit val logStatusFormat: Format[LogStatus.Type] = enumFormat(LogStatus)
   implicit val caseTemplateStatusFormat: Format[CaseTemplateStatus.Type] = enumFormat(CaseTemplateStatus)
+  implicit val caseReportTemplateStatusFormat: Format[CaseReportTemplateStatus.Type] = enumFormat(CaseReportTemplateStatus)
   implicit val alertStatusFormat: Format[AlertStatus.Type] = enumFormat(AlertStatus)
   implicit val dashboardStatusFormat: Format[DashboardStatus.Type] = enumFormat(DashboardStatus)
-
-  implicit val remedyTemplateStatusFormat: Format[RemedyTemplateStatus.Type] = enumFormat(RemedyTemplateStatus)
 
   implicit val pathWrites: Writes[Path] = Writes((value: Path) ⇒ JsString(value.toString))
 

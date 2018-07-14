@@ -6,10 +6,9 @@ import scala.concurrent.ExecutionContext
 
 import play.api.http.Status
 import play.api.mvc._
-import play.api.Logger
 
 import models.Roles
-import services.RemedyTemplateSrv
+import services.CaseReportTemplateSrv
 
 import org.elastic4play.Timed
 import org.elastic4play.controllers.{ Authenticated, Fields, FieldsBodyParser, Renderer }
@@ -18,8 +17,8 @@ import org.elastic4play.services.JsonFormat.queryReads
 import org.elastic4play.services.{ AuxSrv, QueryDSL, QueryDef }
 
 @Singleton
-class RemedyTemplateCtrl @Inject() (
-    remedyTemplateSrv: RemedyTemplateSrv,
+class CaseReportTemplateCtrl @Inject() (
+    caseReportTemplateSrv: CaseReportTemplateSrv,
     auxSrv: AuxSrv,
     authenticated: Authenticated,
     renderer: Renderer,
@@ -29,27 +28,25 @@ class RemedyTemplateCtrl @Inject() (
 
   @Timed
   def create: Action[Fields] = authenticated(Roles.admin).async(fieldsBodyParser) { implicit request ⇒
-    Logger.info("create in RemedyTemplateCtrl")
-    Logger.info(s"body: ${request.body}")
-    remedyTemplateSrv.create(request.body)
-      .map(template ⇒ renderer.toOutput(CREATED, template))
+    caseReportTemplateSrv.create(request.body)
+      .map(report ⇒ renderer.toOutput(CREATED, report))
   }
 
   @Timed
   def get(id: String): Action[AnyContent] = authenticated(Roles.read).async { implicit request ⇒
-    remedyTemplateSrv.get(id)
-      .map(template ⇒ renderer.toOutput(OK, template))
+    caseReportTemplateSrv.get(id)
+      .map(report ⇒ renderer.toOutput(OK, report))
   }
 
   @Timed
   def update(id: String): Action[Fields] = authenticated(Roles.admin).async(fieldsBodyParser) { implicit request ⇒
-    remedyTemplateSrv.update(id, request.body)
-      .map(template ⇒ renderer.toOutput(OK, template))
+    caseReportTemplateSrv.update(id, request.body)
+      .map(report ⇒ renderer.toOutput(OK, report))
   }
 
   @Timed
   def delete(id: String): Action[AnyContent] = authenticated(Roles.admin).async { implicit request ⇒
-    remedyTemplateSrv.delete(id)
+    caseReportTemplateSrv.delete(id)
       .map(_ ⇒ NoContent)
   }
 
@@ -61,9 +58,8 @@ class RemedyTemplateCtrl @Inject() (
     val nparent = request.body.getLong("nparent").getOrElse(0L).toInt
     val withStats = request.body.getBoolean("nstats").getOrElse(false)
 
-    val (remedyTemplates, total) = remedyTemplateSrv.find(query, range, sort)
-    //val remedyTemplatesWithStats = auxSrv(remedyTemplates, nparent, withStats, removeUnaudited = false)
-    val remedyTemplatesWithStats = remedyTemplates
-    renderer.toOutput(OK, remedyTemplatesWithStats, total)
+    val (caseReportTemplates, total) = caseReportTemplateSrv.find(query, range, sort)
+    val caseReportTemplatesWithStats = auxSrv(caseReportTemplates, nparent, withStats, removeUnaudited = false)
+    renderer.toOutput(OK, caseReportTemplatesWithStats, total)
   }
 }

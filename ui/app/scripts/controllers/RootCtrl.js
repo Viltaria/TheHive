@@ -2,7 +2,7 @@
  * Controller for main page
  */
 angular.module('theHiveControllers').controller('RootCtrl',
-    function($scope, $rootScope, $uibModal, $location, $state, AuthenticationSrv, AlertingSrv, StreamSrv, StreamStatSrv, CaseTemplateSrv, CustomFieldsCacheSrv, MetricsCacheSrv, NotificationSrv, AppLayoutSrv, VersionSrv, RemedyTemplateSrv, currentUser, appConfig) {
+    function($scope, $rootScope, $uibModal, $location, $state, AuthenticationSrv, AlertingSrv, StreamSrv, StreamStatSrv, CaseTemplateSrv, CustomFieldsCacheSrv, MetricsCacheSrv, NotificationSrv, AppLayoutSrv, VersionSrv, currentUser, appConfig) {
         'use strict';
 
         if(currentUser === 520) {
