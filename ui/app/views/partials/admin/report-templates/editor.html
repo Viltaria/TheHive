@@ -1,0 +1,12 @@
+<h4 class="vpad10 text-primary">Report body</h4>
+<i class="fa fa-asterisk text-danger"></i>
+<div class="form-group" ng-class="{ 'has-error' : templateEditForm.body.$invalid && !templateEditForm.body.$pristine }">
+    <div class="col-md-9">
+        <!-- <p class="help-block" ng-hide="$vm.template.valid">Error validating template.</p> -->
+        <!-- <textarea markdown-editor="" class="form-control" name="body" ng-model="$vm.template.body" placeholder="Report body" required rows="10" style="width:100%"></textarea>
+        <div marked="body" class="markdown" style="padding: 20px"></div> -->
+        <p class="help-block" ng-show="templateEditForm.body.$invalid && !templateEditForm.body.$pristine">The template body is required.</p>
+        <markdown-editor content="$vm.template.body"></markdown-editor>
+
+    </div>
+</div>

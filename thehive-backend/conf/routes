@@ -29,11 +29,11 @@ GET      /api/case/template/:caseTemplateId       controllers.CaseTemplateCtrl.g
 PATCH    /api/case/template/:caseTemplateId       controllers.CaseTemplateCtrl.update(caseTemplateId)
 DELETE   /api/case/template/:caseTemplateId       controllers.CaseTemplateCtrl.delete(caseTemplateId)
 
-POST     /api/case/template/_search               controllers.CaseReportTemplateCtrl.find()
-POST     /api/case/template                       controllers.CaseTemplateCtrl.create()
-GET      /api/case/template/:caseTemplateId       controllers.CaseTemplateCtrl.get(caseTemplateId)
-PATCH    /api/case/template/:caseTemplateId       controllers.CaseTemplateCtrl.update(caseTemplateId)
-DELETE   /api/case/template/:caseTemplateId       controllers.CaseTemplateCtrl.delete(caseTemplateId)
+POST     /api/casereport/template/_search               controllers.CaseReportTemplateCtrl.find()
+POST     /api/casereport/template                       controllers.CaseReportTemplateCtrl.create()
+GET      /api/casereport/template/:caseTemplateId       controllers.CaseReportTemplateCtrl.get(caseTemplateId)
+PATCH    /api/casereport/template/:caseTemplateId       controllers.CaseReportTemplateCtrl.update(caseTemplateId)
+DELETE   /api/casereport/template/:caseTemplateId       controllers.CaseReportTemplateCtrl.delete(caseTemplateId)
 
 POST     /api/case/artifact/_search               controllers.ArtifactCtrl.find()
 POST     /api/case/:caseId/artifact/_search       controllers.ArtifactCtrl.findInCase(caseId)

@@ -53,7 +53,8 @@
     "angular-drag-and-drop-lists": "^2.1.0",
     "angular-bootstrap-colorpicker": "^3.0.31",
     "file-saver": "^1.3.3",
-    "pdfmake": "^0.1.36"
+    "pdfmake": "^0.1.36",
+    "mustache.js": "mustache#^2.3.0"
   },
   "devDependencies": {
     "angular-mocks": "1.5.8"

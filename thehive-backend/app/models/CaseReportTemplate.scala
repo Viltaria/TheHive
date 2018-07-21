@@ -14,7 +14,7 @@ object CaseReportTemplateStatus extends Enumeration with HiveEnumeration {
 }
 
 trait CaseReportTemplateAttributes { _: AttributeDef ⇒
-  // def taskAttributes: Seq[Attribute[_]]
+  def variableAttributes: Seq[Attribute[_]]
 
   // val templateName: A[String] = attribute("name", F.stringFmt, "Name of the template")
   // val titlePrefix: A[Option[String]] = optionalAttribute("titlePrefix", F.textFmt, "Title of the case")
@@ -28,16 +28,18 @@ trait CaseReportTemplateAttributes { _: AttributeDef ⇒
   // val customFields: A[Option[JsValue]] = optionalAttribute("customFields", F.customFields, "List of acceptable custom fields")
   // val tasks: A[Seq[JsObject]] = multiAttribute("tasks", F.objectFmt(taskAttributes), "List of created tasks")
 
-  val name: A[String] = attribute("name", F.stringFmt, "Name of the report template")
-  val content: A[String] = attribute("content", F.stringFmt, "Content of the report template")
+  val title: A[String] = attribute("title", F.stringFmt, "Title of the report template")
+  val description: A[String] = attribute("description", F.stringFmt, "Description of the report template")
+  val body: A[String] = attribute("body", F.stringFmt, "Body of the report template")
+  val variables: A[Seq[JsObject]] = multiAttribute("variables", F.objectFmt(variableAttributes), "List of the available variables")
 }
 
 @Singleton
-class CaseReportTemplateModel extends ModelDef[CaseReportTemplateModel, CaseReportTemplate]("caseReportTemplate", "Case report template", "/caseReportTemplate") with CaseReportTemplateAttributes {
-  // def taskAttributes: Seq[Attribute[_]] = taskModel
-  //   .attributes
-  //   .filter(_.isForm)
+class CaseReportTemplateModel @Inject() (variableModel: ReportVariableModel) extends ModelDef[CaseReportTemplateModel, CaseReportTemplate]("caseReportTemplate", "Case report template", "/caseReportTemplate") with CaseReportTemplateAttributes {
+  def variableAttributes: Seq[Attribute[_]] = variableModel
+    .attributes
+    .filter(_.isForm)
 }
 class CaseReportTemplate(model: CaseReportTemplateModel, attributes: JsObject) extends EntityDef[CaseReportTemplateModel, CaseReportTemplate](model, attributes) with CaseReportTemplateAttributes {
-  // def taskAttributes = Nil
+  def variableAttributes = Nil
 }

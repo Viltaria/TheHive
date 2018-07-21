@@ -1,0 +1,12 @@
+<form class="form-horizontal" name="reportForm" ng-submit="preview.confirm()" novalidate>
+    <div class="modal-header bg-primary">
+        <h3 class="modal-title">Report Preview</h3>
+    </div>
+    <div class="modal-body">
+        <markdown-editor content="preview.output"></markdown-editor>
+    </div>
+    <div class="modal-footer text-left">
+        <button class="btn btn-default" ng-click="preview.previous()" type="button">Previous</button>
+        <button class="btn btn-primary pull-right" type="submit">Confirm</button>
+    </div>
+</form>

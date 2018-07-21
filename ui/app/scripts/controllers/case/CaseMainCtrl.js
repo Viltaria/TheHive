@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     angular.module('theHiveControllers').controller('CaseMainCtrl',
-        function($scope, $rootScope, $state, $stateParams, $q, $uibModal, $http, CaseTabsSrv, CaseSrv, MetricsCacheSrv, UserInfoSrv, MispSrv, StreamSrv, StreamStatSrv, NotificationSrv, UtilsSrv, CaseResolutionStatus, CaseImpactStatus, caze) {
+        function($scope, $rootScope, $state, $stateParams, $q, $uibModal, $http, CaseTabsSrv, CaseSrv, MetricsCacheSrv, UserInfoSrv, MispSrv, StreamSrv, StreamStatSrv, NotificationSrv, UtilsSrv, CaseResolutionStatus, CaseImpactStatus, CaseReportTemplateSrv, caze) {
             $scope.CaseResolutionStatus = CaseResolutionStatus;
             $scope.CaseImpactStatus = CaseImpactStatus;
 
@@ -223,6 +223,19 @@
                     controllerAs: 'report',
                     size: '',
                     resolve: {
+                        templates: function() {
+                            var defer = $q.defer();
+                            $http.post('./api/casereport/template/_search', {}, {
+                                params: {
+                                    range: 'all'
+                                }
+                            }).then(function(response) {
+                                defer.resolve(response.data);
+                            }, function(err) {
+                                defer.reject(err);
+                            });
+                            return defer.promise;
+                        },
                         caze: function() {
                             return $scope.caze;
                         },
@@ -243,7 +256,7 @@
                                 defer.resolve(response.data);
                             }, function(err) {
                                 defer.reject(err);
-                            })
+                            });
                             return defer.promise;
                         },
                         observables: function() {
@@ -265,6 +278,9 @@
                                 defer.reject(err);
                             })
                             return defer.promise;
+                        },
+                        templateSelected: function() {
+                            return null;
                         }
                     }
                 });

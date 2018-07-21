@@ -1,109 +1,58 @@
 <div class="modal-header bg-primary">
-    <h3 class="modal-titlpe">Case Report</h3>
+    <h3 class="modal-title">Case Report</h3>
 </div>
 <div class="modal-body" id="export">
-    <div class="container">
-        <h1 class="jumbotron-heading">Case #{{ report.caze.caseId }}: {{ report.caze.title }}</h1>
-        <div class="row">
-            <div class="col-sm">
-                <span>
-                    <i class="glyphicon glyphicon-user"></i>
-                    {{ report.caze.owner }}
-                </span> 
+    <!-- <div class="container"> -->
+        <div ng-repeat="t in report.templates">
+            <div class="row" ng-if="$index % 3 == 0">
+                <a ng-if="report.templates[$index]" class="well-link" href="#" ng-click="report.selectTemplate($event, report.templates[$index])">
+                    <div class="col-md-4">
+                        <div class="panel panel-default" ng-class="{'outline': report.templates[$index].selected}">
+                            <div class="panel-body">
+                                <div class="panel-heading">
+                                    {{ report.templates[$index].title }}
+                                </div>
+                                <div class="panel-body">
+                                    {{ report.templates[$index].description }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a ng-if="report.templates[$index + 1]" class="well-link" href="#" ng-click="report.selectTemplate($event, report.templates[$index + 1])">
+                    <div class="col-md-4">
+                        <div class="panel panel-default" ng-class="{'outline': report.templates[$index + 1].selected}">
+                            <div class="panel-body">
+                                <div class="panel-heading">
+                                    {{ report.templates[$index + 1].title }}
+                                </div>
+                                <div class="panel-body">
+                                    {{ report.templates[$index + 1].description }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a ng-if="report.templates[$index + 2]" class="well-link" href="#" ng-click="report.selectTemplate($event, report.templates[$index + 2])">
+                    <div class="col-md-4">
+                        <div class="panel panel-default" ng-class="{'outline': report.templates[$index + 2].selected}">
+                            <div class="panel-body">
+                                <div class="panel-heading">
+                                    {{ report.templates[$index + 2].title }}
+                                </div>
+                                <div class="panel-body">
+                                    {{ report.templates[$index + 2].description }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
-            <div class="col-sm">
-                <span>
-                    <i class="glyphicon glyphicon-adjust"></i>
-                    {{ report.caze.status }}
-                </span>                        
-            </div>
-            <div class="col-sm">
-                <span>
-                    <i class="glyphicon glyphicon-asterisk"></i>
-                    {{ report.caze.severity }}
-                </span>                        
-            </div>
-            <div class="col-sm">
-                <span>
-                    <i class="glyphicon glyphicon-warning-sign"></i>
-                    {{ report.caze.tlp }}
-                </span>                        
-            </div>
-            <div ng-if="report.caze.flag" class="col-sm">
-                <span>
-                    <i class="glyphicon glyphicon-flag"></i>
-                </span>                        
-            </div>
-        </div>    
-
-        <div>
-            <h3>Description</h3>
-            <p>{{ report.caze.description }}</p>
         </div>
-
-        <div>
-            <h3>Audit Trail</h3>
-            <p>Created By: {{ report.caze.createdBy }}</p>
-            <p>Created On: {{ report.caze.createdAt }}</p>
-            <p>Assigned To: {{ report.caze.owner }}</p>
-            <p>Last Updated: {{ report.caze.updatedAt }}</p>
-            <p>Last Updated By: {{ report.caze.updatedBy }}</p>
-            <p ng-if="report.caze.endDate">Closed On: {{ report.caze.endDate }}</p>
-        </div>
-    </div>
-
-    <div class="container">
-        <h1 class="jumbotron-heading">Tasks</h1>
-        <div ng-repeat="task in report.tasks" ng-init="logs=report.taskLogs(task.id)">
-            <p>Number: {{ $index + 1 }}</p>
-            <p>Title: {{ task.title }}</p>
-            <p>Author: {{ task.createdBy }}</p>
-            <p>Status: {{ task.status }}</p>
-            <p>Assigned To: {{ task.owner || task.createdBy }}</p>
-            <span ng-if="task.flag">
-                <i class="glyphicon glyphicon-flag"></i>
-            </span>
-            <div ng-if="task.description">
-                <h5>Description</h5>            
-                <p>{{ task.description }}</p>
-            </div>
-            <div>
-                <h5>Audit Trail</h5>
-                <p>Created By: {{ task.createdBy }}</p>
-                <p>Created On: {{ task.createdAt }}</p>
-                <p>Assigned To: {{ task.owner || task.createdBy }}</p>
-                <p ng-if="task.startDate">Started On: {{ task.startDate }}</p>
-                <p>Last Updated: {{ task.updatedAt }}</p>
-                <p>Last Updated By: {{ task.updatedBy }}</p>
-                <p ng-if="task.endDate">Closed On: {{ task.endDate }}</p>
-            </div>
-
-            <div>                <h5>Logs</h5>
-                <div ng-repeat="log in logs">
-                    <p>Number: {{ $index + 1 }}</p>
-                    <p>Message: {{ log.message }}</p>
-                    <p>Start Date: {{ log.startDate }}</p>
-                    <p>Status: {{ log.status }}</p>
-                </div>
-           </div>    
-        </div>
-    </div>
-
-    <div class="container">
-        <h1 class="jumbotron-heading">Observables</h1>
-        <div ng-repeat="observable in report.observables">
-            <p>Data: {{ observable.data }}</p>
-            <p>Data Type: {{ observable.dataType }}</p>
-            <p>Message: {{ observable.message }}</p>
-            <p>Start Date: {{ observable.startDate }}</p>
-            <p>TLP: {{ observable.tlp }}</p>
-            <p>IOC: {{ observable.ioc }}</p>
-            <p>Status: {{ observable.status }}</p>
-        </div>
-    </div>
-
+    <!-- </div> -->
 </div>
 <div class="modal-footer text-left">
     <button class="btn btn-default" ng-click="report.cancel()">Cancel</button>
-    <button class="btn btn-primary pull-right" ng-click="report.download()">Download</button>
+    <button class="btn btn-danger pull-right" ng-click="report.download()">Download</button>
+    <button class="btn btn-primary pull-right" ng-click="report.preview()">Preview</button>
 </div>

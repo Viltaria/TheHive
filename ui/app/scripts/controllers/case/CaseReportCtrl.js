@@ -1,10 +1,21 @@
 (function() {
     'use strict';
     angular.module('theHiveControllers')
+        .factory("Mustache", function(NotificationSrv, $window) {
+            if (!$window.Mustache) {
+                NotificationSrv.error("Error loading mustache.js library");
+            }
+            return $window.Mustache;
+        })
         .controller('CaseReportCtrl', CaseReportCtrl);
 
-        function CaseReportCtrl($uibModalInstance, $http, $q, CaseReportSrv, caze, tasks, observables) {            
+        function CaseReportCtrl($uibModal, $uibModalInstance, $http, $q, CaseReportSrv, templates, caze, tasks, observables, templateSelected) {            
             var self = this;
+
+
+            this.templates = templates;
+            console.log("TEMPLATES");
+            console.log(templates);
 
             this.caze = caze;
             console.log("CASE");
@@ -18,70 +29,72 @@
             console.log("OBSERVABLES");
             console.log(observables);
 
-            this.download = function() {
-                this.export();
-                $uibModalInstance.close();
+            this.templateSelected = templateSelected;
+
+            this.selectTemplate = function($event, template) {
+                angular.forEach(self.templates, function(value, key) {
+                    value.selected = false;
+                });              
+                template.selected = !template.selected;
+
+                self.templateSelected = template.selected ? template : null;
             };
-            this.export = function() {
-                var newline = {
-                    text: "\n"
-                }
-                var docDefinition = {
-                    content: [
-                        {
-                            text: "Case #" + caze.caseId + ": " + caze.title,
-                            style: "header",
-                            alignment: "center"
-                        }, 
-                        newline,
-                        newline,
-                        {
-                            alignment: "justify",
-                            columns: [
-                                {
-                                    text: "Owner: " + caze.owner
-                                },
-                                {
-                                    text: "Status: " + caze.status
-                                },
-                                {
-                                    text: "Severity: " + caze.severity
-                                },
-                                {
-                                    text: "TLP: " + caze.tlp
-                                }
-                            ]
-                        },
-                        newline,
-                        newline,
-                        {
-                            text: "Case Description: " + caze.description,
-                            style: "subheader",
-                            alignment: "center"
-                        },
-                        newline,
-                        newline,
-                        {
-                            text: ""
-                        }
 
+            this.preview = function() {
 
-                    ],
-                    styles: {
-                        header: {
-                            fontSize: 22,
-                            bold: true
-                        },
-                        subheader: {
-                            fontSize: 16,
-                            bold: true
-                        }
-                    },
-                    defaultStyle: {
-                        columnGap: 20
-                    }
+                var view = {
+                    template_name: self.templateSelected.title,
+                    template_description: self.templateSelected.description,
+                    case_id: self.caze.id,
+                    created_at: self.caze.createdAt,
+                    start_date: self.caze.startDate,
+                    created_by: self.caze.createdBy,
+                    case_title: self.caze.title,
+                    case_severity: self.caze.severity,
+                    case_tlp: self.caze.tlp,
+                    case_assignee: self.caze.assignee,
+                    case_tags: self.caze.tags,
+                    case_description: self.caze.description
                 };
-                pdfMake.createPdf(docDefinition).download("test.pdf");
+
+                $uibModalInstance.close();
+                $uibModal.open({
+                        templateUrl: 'views/partials/case/case.report.preview.html',
+                        controller: 'CaseReportPreviewCtrl',
+                        controllerAs: 'preview',
+                        size: '',
+                        resolve: {
+                            template: function() {
+                                return self.templateSelected;
+                            },
+                            templates: function() {
+                                return self.templates;
+                            },
+                            caze: function() {
+                                return self.caze;
+                            },
+                            observables: function() {
+                                return self.observables;
+                            },
+                            tasks: function() {
+                                return self.tasks;
+                            },
+                            output: function() {
+                                return Mustache.render(self.templateSelected.body, view);
+                            }
+                        }
+                    });
+            };
+
+            this.download = function() {
+                if (self.templateSelected) {
+                    this.export(self.templateSelected);
+                    $uibModalInstance.close();
+                }
+            };
+
+            this.export = function() {
+                
              };
 
             this.cancel = function() {

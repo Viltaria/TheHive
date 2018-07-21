@@ -1,0 +1,17 @@
+<div class="case-template-section">
+    <h4 class="vpad10 text-primary">
+        Variables ({{$vm.template.variables.length || 0}})
+    </h4>
+
+    <div class="empty-message" ng-if="!$vm.template.variables || $vm.template.variables.length === 0">
+        No variables were found in the template.
+    </div>
+
+    <div ng-if="$vm.template.variables.length !== 0" ng-model="$vm.template.variables" ui-sortable="$vm.sortableOptions">
+        <div class="variable-item" ng-init="isCollapsed=true" ng-repeat="v in $vm.template.variables">
+            <div>
+                <div ng-include="'views/partials/admin/report-templates/observables.var.html'"></div>
+            </div>
+        </div>
+    </div>
+</div>
