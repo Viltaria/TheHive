@@ -46,10 +46,10 @@
             };
 
             self.confirm = function () {
-              console.log(markdownpdf);
-              markdownpdf().from.string(output).to("test.pdf");
-              // var converter = new showdown.Converter();
-              // var html = converter.makeHtml(output); 
+              // console.log(markdownpdf);
+              // markdownpdf().from.string(output).to("test.pdf");
+              var converter = new showdown.Converter();
+              var html = converter.makeHtml(output); 
               // // pdfMake.createPdf({
               // //   content: html
               // // }).download();
@@ -58,6 +58,10 @@
               // htmlToPdf.convertHTMLString(html, '', function(error, success) {
               //   console.log(error);
               // });
+              var pdf = new jsPDF('p', 'pt', 'letter');  
+              pdf.fromHTML(html); // HTML string or DOM elem ref.  
+              pdf.save();
+
               $uibModalInstance.close();
             };
 

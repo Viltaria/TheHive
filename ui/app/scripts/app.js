@@ -8,7 +8,7 @@ angular.module('thehive', ['ngAnimate', 'ngMessages', 'ngSanitize', 'ui.bootstra
         'theHiveDirectives', 'yaru22.jsonHuman', 'timer', 'angularMoment', 'ngCsv', 'ngTagsInput', 'btford.markdown',
         'ngResource', 'ui-notification', 'angularjs-dropdown-multiselect', 'angular-clipboard',
         'LocalStorageModule', 'angular-markdown-editor', 'hc.marked', 'hljs', 'ui.ace', 'angular-page-loader', 'naif.base64', 'images-resizer', 'duScroll',
-        'dndLists', 'colorpicker.module'
+        'dndLists', 'colorpicker.module',
     ])
     .config(function($resourceProvider) {
         'use strict';
