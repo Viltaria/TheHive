@@ -25,11 +25,6 @@
                     params: {
                         caseId: '@caseId'
                     }
-                },
-                copy: {
-                    method: 'POST',
-                    url: './api/case',
-                    params: '@caze'
                 }
             });
         });

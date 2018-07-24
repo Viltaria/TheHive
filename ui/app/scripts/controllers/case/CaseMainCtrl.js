@@ -240,6 +240,7 @@
                       }
                   }
               });
+            };
 
             $scope.shareCase = function() {
                 if($scope.appConfig.connectors.misp && $scope.appConfig.connectors.misp.servers.length === 0) {
