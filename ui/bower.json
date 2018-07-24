@@ -54,7 +54,8 @@
     "angular-bootstrap-colorpicker": "^3.0.31",
     "file-saver": "^1.3.3",
     "pdfmake": "^0.1.36",
-    "mustache.js": "mustache#^2.3.0"
+    "mustache.js": "mustache#^2.3.0",
+    "showdown": "^1.8.6"
   },
   "devDependencies": {
     "angular-mocks": "1.5.8"
@@ -62,6 +63,7 @@
   "resolutions": {
     "angular": "1.5.8",
     "moment": "~2.14.1",
-    "jquery": "~3.1.0"
+    "jquery": "~3.1.0",
+    "showdown": "~0.3.1"
   }
 }
