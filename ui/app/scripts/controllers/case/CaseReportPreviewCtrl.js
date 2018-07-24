@@ -46,21 +46,11 @@
             };
 
             self.confirm = function () {
-              // console.log(markdownpdf);
-              // markdownpdf().from.string(output).to("test.pdf");
               var converter = new showdown.Converter();
               var html = converter.makeHtml(output); 
-              // // pdfMake.createPdf({
-              // //   content: html
-              // // }).download();
-              // // pdf.create(html)
-              // // html2pdf(html);
-              // htmlToPdf.convertHTMLString(html, '', function(error, success) {
-              //   console.log(error);
-              // });
               var pdf = new jsPDF('p', 'pt', 'letter');  
               pdf.fromHTML(html); // HTML string or DOM elem ref.  
-              pdf.save();
+              pdf.save(self.template.title);
 
               $uibModalInstance.close();
             };

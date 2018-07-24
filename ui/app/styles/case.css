@@ -77,3 +77,7 @@ table.case-list .case-tags .label,
     font-size: 12px !important;
     font-weight: normal;
 }
+
+.well-link {
+    cursor: pointer;
+}

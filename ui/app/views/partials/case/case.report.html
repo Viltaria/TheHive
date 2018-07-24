@@ -5,10 +5,10 @@
     <!-- <div class="container"> -->
         <div ng-repeat="t in report.templates">
             <div class="row" ng-if="$index % 3 == 0">
-                <a ng-if="report.templates[$index]" class="well-link" href="#" ng-click="report.selectTemplate($event, report.templates[$index])">
+                <a ng-if="report.templates[$index]" class="well-link" ng-click="report.selectTemplate($event, report.templates[$index])">
                     <div class="col-md-4">
-                        <div class="panel panel-default" ng-class="{'outline': report.templates[$index].selected}">
-                            <div class="panel-body">
+                        <div class="panel panel-default"  >
+                            <div class="panel-body" ng-class="{'outline': report.templates[$index].selected}">
                                 <div class="panel-heading">
                                     {{ report.templates[$index].title }}
                                 </div>
@@ -19,10 +19,10 @@
                         </div>
                     </div>
                 </a>
-                <a ng-if="report.templates[$index + 1]" class="well-link" href="#" ng-click="report.selectTemplate($event, report.templates[$index + 1])">
+                <a ng-if="report.templates[$index + 1]" class="well-link" ng-click="report.selectTemplate($event, report.templates[$index + 1])">
                     <div class="col-md-4">
-                        <div class="panel panel-default" ng-class="{'outline': report.templates[$index + 1].selected}">
-                            <div class="panel-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body" ng-class="{'outline': report.templates[$index + 1].selected}">
                                 <div class="panel-heading">
                                     {{ report.templates[$index + 1].title }}
                                 </div>
@@ -33,10 +33,10 @@
                         </div>
                     </div>
                 </a>
-                <a ng-if="report.templates[$index + 2]" class="well-link" href="#" ng-click="report.selectTemplate($event, report.templates[$index + 2])">
+                <a ng-if="report.templates[$index + 2]" class="well-link" ng-click="report.selectTemplate($event, report.templates[$index + 2])">
                     <div class="col-md-4">
-                        <div class="panel panel-default" ng-class="{'outline': report.templates[$index + 2].selected}">
-                            <div class="panel-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body" ng-class="{'outline': report.templates[$index + 2].selected}">
                                 <div class="panel-heading">
                                     {{ report.templates[$index + 2].title }}
                                 </div>
