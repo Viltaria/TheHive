@@ -230,6 +230,17 @@
                 });
             };
 
+            $scope.copyCase = function() {
+              var modalInstance = $uibModal.open({
+                  templateUrl: 'views/partials/case/case.copy.confirm.html',
+                  controller: 'CaseCopyModalCtrl',
+                  resolve: {
+                      caze: function() {
+                          return $scope.caze;
+                      }
+                  }
+              });
+
             $scope.shareCase = function() {
                 if($scope.appConfig.connectors.misp && $scope.appConfig.connectors.misp.servers.length === 0) {
                     NotificationSrv.log('There are no MISP servers defined', 'error');

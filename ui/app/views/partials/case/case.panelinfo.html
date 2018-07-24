@@ -58,6 +58,13 @@
             </a>
         </span>
 
+        <span class="ml-xs pull-right">
+            <a href ng-click="copyCase()" class="text-primary noline" uib-tooltip="Copy case">
+                <i class="text-primary fa fa-copy"></i>
+                Copy
+            </a>
+        </span>
+
         <span class="ml-xs pull-right" ng-if="!caze.flag || caze.flag == undefined">
             <a href ng-click="switchFlag()" class="text-muted noline" uib-tooltip="Flag case">
                 <i class="text-muted fa fa-flag" ng-class="setFlag" ng-mouseout="setFlag='text-muted'" ng-mouseover="setFlag='text-yellow'"></i>
