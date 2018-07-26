@@ -16,11 +16,21 @@
 
             self.templates = templates;
 
+            self.uploadFiles = function(files, errFiles) {
+                var newFiles = [];
+                angular.forEach(files, function(file) {
+                    newFiles.push(_.pick(file), ['lastModified', 'name', 'size', 'filetype']);
+                });
+                self.template.attachments.concat(newFiles);
+                console.log(self.template.attachments);
+            };
+
            self.newTemplate = function() {
                 self.template = {
                     title: '',
                     description: '',
                     body: '',
+                    attachments: [],
                     variables: [
                         {
                             key: "Template Name",
@@ -41,10 +51,6 @@
                         {
                             key: "Start Date",
                             syntax: "start_date"
-                        },
-                        {
-                            key: "Created At",
-                            syntax: "created_at"
                         },
                         {
                             key: "Created By",
@@ -81,29 +87,6 @@
 
 
             self.saveTemplate = function() {
-                // Set tags
-                // self.template.tags = _.pluck(self.tags, 'text');
-
-                // Set custom fields
-                // self.template.customFields = {};
-                // _.each(self.templateCustomFields, function(cf, index) {
-                //     var fieldDef = self.fields[cf.name];
-                //     var value = null;
-                //     if (fieldDef) {
-                //         value = fieldDef.type === 'date' && cf.value ? moment(cf.value).valueOf() : cf.value || null;
-                //     }
-
-                //     self.template.customFields[cf.name] = {};
-                //     self.template.customFields[cf.name][fieldDef ? fieldDef.type : cf.type] = value;
-                //     self.template.customFields[cf.name].order = index + 1;
-                // });
-
-                // self.template.metrics = {};
-                // _.each(self.templateMetrics, function(value, index) {
-                //     var fieldDef = self.fields[value];
-
-                //     self.template.metrics[value.metric] = value.value;
-                // });
                 if (_.isEmpty(self.template.id)) {
                     self.createTemplate(self.template);
                 } else {
@@ -145,7 +128,6 @@
             };
 
             self.createTemplate = function(template) {
-                console.log(template);
                 return CaseReportTemplateSrv.create(template).then(
                     function(response) {
                         self.getList(response.data.id);

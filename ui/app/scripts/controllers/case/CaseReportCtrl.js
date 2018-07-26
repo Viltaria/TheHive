@@ -14,21 +14,9 @@
 
 
             this.templates = templates;
-            console.log("TEMPLATES");
-            console.log(templates);
-
             this.caze = caze;
-            console.log("CASE");
-            console.log(caze);
-            
             this.tasks = tasks;
-            console.log("TASKS");
-            console.log(this.tasks);
-
             this.observables = observables;
-            console.log("OBSERVABLES");
-            console.log(observables);
-
             this.templateSelected = templateSelected;
 
             this.selectTemplate = function($event, template) {

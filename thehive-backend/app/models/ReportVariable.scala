@@ -17,24 +17,9 @@ import org.elastic4play.utils.RichJson
 trait ReportVariableAttributes { _: AttributeDef ⇒
   val key = attribute("key", F.textFmt, "Key of the report variable")
   val syntax = attribute("syntax", F.textFmt, "Syntax of the report variable")
-  // val description = attribute("description", F.textFmt, "Description of the variable")
 }
 
 @Singleton
 class ReportVariableModel extends ModelDef[ReportVariableModel, ReportVariable]("reportVariable", "Report Variable", "/reportVariable") with ReportVariableAttributes {
-  // override val defaultSortBy = Seq("-startDate")
-
-  // override def updateHook(task: BaseEntity, updateAttrs: JsObject): Future[JsObject] = Future.successful {
-  //   (updateAttrs \ "status").asOpt[TaskStatus.Type] match {
-  //     case Some(TaskStatus.InProgress) ⇒
-  //       updateAttrs
-  //         .setIfAbsent("startDate", new Date)
-  //     case Some(TaskStatus.Completed) ⇒
-  //       updateAttrs
-  //         .setIfAbsent("endDate", new Date) +
-  //         ("flag" → JsFalse)
-  //     case _ ⇒ updateAttrs
-  //   }
-  // }
 }
 class ReportVariable(model: ReportVariableModel, attributes: JsObject) extends EntityDef[ReportVariableModel, ReportVariable](model, attributes) with ReportVariableAttributes

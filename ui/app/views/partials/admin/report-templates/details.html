@@ -9,12 +9,28 @@
     </div>
 </div>
 
-<div class="form-group" ng-class="{ 'has-error' : templateEditForm.description.$invalid && !templateEditForm.description.$pristine }">
+<div class="form-group" ng-class="{ 'has-error' : $vm.template.description.$invalid && !$vm.template.description.$pristine }">
     <label class="col-md-3 control-label">Description
         <i class="fa fa-asterisk text-danger"></i>
     </label>
     <div class="col-md-9">
         <textarea class="form-control" name="description" ng-model="$vm.template.description" placeholder="Template description" required rows="3"></textarea>
-        <p class="help-block" ng-show="templateEditForm.description.$invalid && !templateEditForm.description.$pristine">The template description is required.</p>
+        <p class="help-block" ng-show="$vm.template.description.$invalid && !$vm.template.description.$pristine">The template description is required.</p>
     </div>
 </div>
+
+<div class="form-group">
+    <label class="col-md-3 control-label">Attachments
+    </label>
+    <div class="col-md-9">
+        <button class="btn btn-sm btn-default" ngf-select="$vm.uploadFiles($files, $invalidFiles)" ngf-multiple="true">
+            <i class="text-default glyphicon glyphicon-paperclip"></i>
+            Select
+        </button>
+        <div ng-repeat="attachment in $vm.template.attachments">
+            <div control="state" file-chooser="" filemodel="attachment" preview="false"></div>
+        </div>
+    </div>
+</div>
+
+

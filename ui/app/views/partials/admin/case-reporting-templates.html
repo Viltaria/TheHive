@@ -22,7 +22,7 @@
             </div>
             <div class="col-md-10 left-border">
 
-                <form class="form-horizontal" name="templateEditForm" ng-submit="$vm.saveTemplate()" novalidate>
+                <form class="form-horizontal" name="templateEditForm" novalidate>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mt-xs" ng-include="'views/partials/admin/report-templates/details.html'"></div>
@@ -41,7 +41,7 @@
                         <button class="btn btn-danger" ng-click="$vm.deleteTemplate()" ng-disabled="!$vm.template.id" type="button">Delete report template</button>
                         <span class="hpad10">
                             <i class="fa fa-asterisk text-danger"></i>&nbsp;Required field</span>
-                        <button class="btn btn-primary pull-right" ng-disabled="templateEditForm.$invalid" type="submit">
+                        <button class="btn btn-primary pull-right" ng-disabled="templateEditForm.$invalid" ng-click="$vm.saveTemplate()" type="submit">
                             <i class="fa fa-plus"></i>&nbsp;Save report template</button>
                         <button class="btn btn-default pull-right mr-xxxs" ng-disabled="templateEditForm.$invalid" type="button" ng-click="$vm.exportTemplate()">
                             <i class="fa fa-download"></i>&nbsp;Export report template</button>
