@@ -17,6 +17,13 @@ import org.elastic4play.utils.RichJson
 trait ReportVariableAttributes { _: AttributeDef ⇒
   val key = attribute("key", F.textFmt, "Key of the report variable")
   val syntax = attribute("syntax", F.textFmt, "Syntax of the report variable")
+
+  val ttype = attribute("ttype", F.textFmt, "Variable or Attachment")
+
+  val lastModified = attribute("lastModified", F.textFmt, "Last modified time of the report template attachment")
+  val name = attribute("name", F.textFmt, "File name of the report template attachment")
+  val size = attribute("size", F.textFmt, "File size of the report template attachment")
+  val filetype = attribute("filetype", F.textFmt, "File type of the report template attachment")
 }
 
 @Singleton
