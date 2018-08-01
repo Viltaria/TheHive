@@ -12,23 +12,10 @@
         function CaseReportCtrl($uibModal, $uibModalInstance, $http, $q, CaseReportSrv, templates, caze, tasks, observables, templateSelected) {            
             var self = this;
 
-
             this.templates = templates;
-            console.log("TEMPLATES");
-            console.log(templates);
-
             this.caze = caze;
-            console.log("CASE");
-            console.log(caze);
-            
             this.tasks = tasks;
-            console.log("TASKS");
-            console.log(this.tasks);
-
             this.observables = observables;
-            console.log("OBSERVABLES");
-            console.log(observables);
-
             this.templateSelected = templateSelected;
 
             this.selectTemplate = function($event, template) {
@@ -92,10 +79,6 @@
                     $uibModalInstance.close();
                 }
             };
-
-            this.export = function() {
-                
-             };
 
             this.cancel = function() {
                 $uibModalInstance.dismiss();
