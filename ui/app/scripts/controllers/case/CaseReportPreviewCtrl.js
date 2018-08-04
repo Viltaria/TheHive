@@ -49,8 +49,9 @@
               var converter = new showdown.Converter();
               var html = converter.makeHtml(output); 
               var pdf = new jsPDF('p', 'pt', 'letter');  
-              pdf.fromHTML(html); // HTML string or DOM elem ref.  
-              pdf.save(self.template.title);
+              pdf.fromHTML(html, 40, 40, {
+                width: 522
+              }); // HTML string or DOM elem ref.                pdf.save(self.template.title);
 
               $uibModalInstance.close();
             };
