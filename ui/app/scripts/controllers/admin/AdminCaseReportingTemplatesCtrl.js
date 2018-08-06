@@ -5,6 +5,7 @@
         .module('theHiveControllers')
         .controller('AdminCaseReportingTemplatesCtrl', function(
             $scope,
+            $parse,
             $uibModal,
             templates,
             CaseReportTemplateSrv,
@@ -14,6 +15,63 @@
         ) {
             var self = this;
 
+            $scope.initEditor = function(){
+                $(".bootstrap-markdown").markdown({
+                    iconlibrary: "fa",
+                    autofocus: false,
+                    saveable: false,
+                    onChange: function(event) {
+                        //setter(scope, event.getContent());
+                        $parse("$vm.template.body").assign($scope, event.getContent())
+                    },
+                    hiddenButtons: "Image",
+                    additionalButtons: [[{
+                        name: "groupLink",
+                        data: [{
+                            name: "Picture",
+                            toggle: true,
+                            title: "Image",
+                            icon: {
+                                glyph: 'glyphicon glyphicon-picture',
+                                fa: 'fa fa-picture-o',
+                                'fa-3': 'icon-picture',
+                                'fa-5': 'far fa-image',
+                                octicons: 'octicon octicon-file-media'
+                            },
+                            callback: function(e){
+                                // Give ![] surround the selection and prepend the image link
+                                var chunk, cursor, selected = e.getSelection(),
+                                    content = e.getContent(),
+                                    link;
+
+                                var modalInstance = $uibModal.open({
+                                    animation: true,
+                                    templateUrl: 'views/partials/admin/report-template-image.html',
+                                    controller: 'AdminCaseReportingTemplateImageUploadCtrl',
+                                    controllerAs: 'vm',
+                                    size: ''
+                                });
+
+                                modalInstance.result
+                                    .then(function(encodedImage) {
+                                        // transform selection and set the cursor into chunked text
+                                        e.replaceSelection('![](' + encodedImage + ')');
+                                        cursor = selected.start + 2;
+
+                                        e.setSelection(cursor, cursor + encodedImage.length);
+                                    })
+                                    .catch(function(err) {
+                                        if (err && err.status) {
+                                            NotificationSrv.error('TemplateCtrl', err.data, err.status);
+                                        }
+                                    });
+                                }
+                            }
+                        ]
+                    }]]
+                })
+            }
+
             self.templates = templates;
 
             self.uploadFiles = function(files, errFiles) {
@@ -22,7 +80,6 @@
                     newFiles.push(_.pick(file), ['lastModified', 'name', 'size', 'filetype']);
                 });
                 self.template.attachments.concat(newFiles);
-                console.log(self.template.attachments);
             };
 
            self.newTemplate = function() {
@@ -30,7 +87,7 @@
                     title: '',
                     description: '',
                     body: '',
-                    attachments: [],
+                    //attachments: [],
                     variables: [
                         {
                             key: "Template Name",
@@ -237,6 +294,41 @@
             //     });
             // };
 
+        })
+        .controller('AdminCaseReportingTemplateImageUploadCtrl', function($scope, $uibModalInstance) {
+             var self = this;
+            this.formData = {
+                fileContent: {}
+            };
+
+            $scope.$watch('vm.formData.attachment', function(file) {
+                if (!file) {
+                    self.formData.fileContent = {};
+                    return;
+                }
+                var aReader = new FileReader();
+                aReader.readAsDataURL(self.formData.attachment, 'UTF-8');
+                aReader.onload = function(evt) {
+                    $scope.$apply(function() {
+                        self.formData.fileContent = aReader.result;
+                        $("#base64image").attr("src", self.formData.fileContent)
+                        $("#base64image").show()
+                    });
+                };
+                aReader.onerror = function(evt) {
+                    $scope.$apply(function() {
+                        self.formData.fileContent = "";
+                    });
+                };
+            });
+
+            this.ok = function() {
+                $uibModalInstance.close(this.formData.fileContent);
+            };
+
+            this.cancel = function() {
+                $uibModalInstance.dismiss('cancel');
+            };
         })
         .controller('AdminCaseReportingTemplateImportCtrl', function($scope, $uibModalInstance) {
              var self = this;

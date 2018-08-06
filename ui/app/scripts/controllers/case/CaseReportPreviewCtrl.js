@@ -21,38 +21,42 @@
             self.previous = function() {
                 $uibModalInstance.close();
                 $uibModal.open({
-                  templateUrl: 'views/partials/case/case.report.html',
-                  controller: 'CaseReportCtrl',
-                  controllerAs: 'report',
-                  size: '',
-                  resolve: {
-                      templates: function() {
-                          return self.templates;
-                      },
-                      caze: function() {
-                          return self.caze;
-                      },
-                      tasks: function() {
-                          return self.tasks;
-                      },
-                      observables: function() {                          
-                          return self.observables;
-                      },
-                      templateSelected: function() {
-                          return self.template;
-                      }
+                    templateUrl: 'views/partials/case/case.report.html',
+                    controller: 'CaseReportCtrl',
+                    controllerAs: 'report',
+                    size: '',
+                    resolve: {
+                        templates: function() {
+                            return self.templates;
+                        },
+                        caze: function() {
+                            return self.caze;
+                        },
+                        tasks: function() {
+                            return self.tasks;
+                        },
+                        observables: function() {                          
+                            return self.observables;
+                        },
+                        templateSelected: function() {
+                            return self.template;
+                        }
                     }
                 });
             };
 
             self.confirm = function () {
-              var converter = new showdown.Converter();
-              var html = converter.makeHtml(output); 
-              var pdf = new jsPDF('p', 'pt', 'letter');  
-              pdf.fromHTML(html); // HTML string or DOM elem ref.  
-              pdf.save(self.template.title);
+                var converter = new showdown.Converter();
+                var html = converter.makeHtml(self.output); 
+                var pdf = new jsPDF('p', 'pt', 'letter');  
+                pdf.fromHTML(html, 10, 10, {
+                }, function(dispose){
+                    console.log("TEST")
+                    console.log(dispose)
+                    pdf.save(self.template.title);
+                }); // HTML string or DOM elem ref.  
 
-              $uibModalInstance.close();
+                $uibModalInstance.close();
             };
 
         });
