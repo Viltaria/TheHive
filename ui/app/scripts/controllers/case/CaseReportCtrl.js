@@ -12,7 +12,6 @@
         function CaseReportCtrl($uibModal, $uibModalInstance, $http, $q, CaseReportSrv, templates, caze, tasks, observables, templateSelected) {            
             var self = this;
 
-
             this.templates = templates;
             this.caze = caze;
             this.tasks = tasks;
@@ -80,10 +79,6 @@
                     $uibModalInstance.close();
                 }
             };
-
-            this.export = function() {
-                
-             };
 
             this.cancel = function() {
                 $uibModalInstance.dismiss();
