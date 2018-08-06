@@ -42,7 +42,9 @@
                     case_tlp: self.caze.tlp,
                     case_assignee: self.caze.assignee,
                     case_tags: self.caze.tags,
-                    case_description: self.caze.description
+                    case_description: self.caze.description,
+                    observables: self.observables,
+                    tasks: self.tasks
                 };
 
                 $uibModalInstance.close();
