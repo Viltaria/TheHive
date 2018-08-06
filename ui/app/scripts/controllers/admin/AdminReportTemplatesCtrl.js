@@ -16,7 +16,6 @@
         this.analyzerIds = [];
         this.analyzerCount = 0;
 
-
         this.load = function() {
             $q.all([
                 ReportTemplateSrv.list(),
