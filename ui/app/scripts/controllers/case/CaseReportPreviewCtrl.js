@@ -51,8 +51,6 @@
                 var pdf = new jsPDF('p', 'pt', 'letter');  
                 pdf.fromHTML(html, 10, 10, {
                 }, function(dispose){
-                    console.log("TEST")
-                    console.log(dispose)
                     pdf.save(self.template.title);
                 }); // HTML string or DOM elem ref.  
 
