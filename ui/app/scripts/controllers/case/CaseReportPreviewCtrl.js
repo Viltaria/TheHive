@@ -49,7 +49,8 @@
                 var converter = new showdown.Converter();
                 var html = converter.makeHtml(self.output); 
                 var pdf = new jsPDF('p', 'pt', 'letter');  
-                pdf.fromHTML(html, 10, 10, {
+                pdf.fromHTML(html, 40, 40, {
+                    width: 522
                 }, function(dispose){
                     pdf.save(self.template.title);
                 }); // HTML string or DOM elem ref.  
